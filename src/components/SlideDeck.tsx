@@ -193,9 +193,33 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
         </div>
       </div>
 
-      {/* Slide Content Area */}
-      <div className="flex-1 relative overflow-y-auto sm:overflow-hidden flex items-center justify-center p-4 sm:p-8 text-white w-full max-w-7xl mx-auto">
-        <div className="w-full h-full flex flex-col justify-center animate-fade-in relative z-10">
+      {/* Slide Content Area with Floating Navigation Arrows */}
+      <div className="flex-1 relative overflow-hidden flex items-center justify-center p-3 sm:p-6 text-white w-full max-w-7xl mx-auto min-h-0">
+        
+        {/* Large Floating Left Navigation Arrow */}
+        {currentSlide > 1 && (
+          <button
+            onClick={goToPrev}
+            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3.5 rounded-2xl bg-[#001D2B]/85 hover:bg-brand-cyan text-slate-300 hover:text-[#002B3D] border border-white/15 backdrop-blur-md shadow-2xl transition-all duration-200 hover:scale-110 group"
+            title="Prethodni slajd (←)"
+          >
+            <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 group-hover:-translate-x-0.5 transition-transform" />
+          </button>
+        )}
+
+        {/* Large Floating Right Navigation Arrow */}
+        {currentSlide < totalSlides && (
+          <button
+            onClick={goToNext}
+            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3.5 rounded-2xl bg-brand-green/90 hover:bg-brand-green text-[#002B3D] border border-brand-green/40 backdrop-blur-md shadow-glow-green transition-all duration-200 hover:scale-110 group"
+            title="Sljedeći slajd (→ ili Space)"
+          >
+            <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 group-hover:translate-x-0.5 transition-transform" />
+          </button>
+        )}
+
+        {/* Slide Stage */}
+        <div className="w-full h-full flex flex-col justify-center animate-fade-in relative z-10 px-6 sm:px-12 min-h-0 overflow-hidden">
               
               {/* SLIDE 1: Welcome Hero */}
               {currentSlide === 1 && (

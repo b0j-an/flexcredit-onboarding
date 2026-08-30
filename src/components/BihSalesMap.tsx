@@ -132,13 +132,13 @@ export const BihSalesMap: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col lg:flex-row items-center gap-4 sm:gap-6 justify-between">
+    <div className="w-full h-full flex flex-col md:flex-row items-center gap-3 sm:gap-6 justify-between min-h-0">
       
       {/* Left / Center: Interactive SVG Map of BiH */}
-      <div className="relative flex-1 w-full flex items-center justify-center max-h-[380px] sm:max-h-[420px]">
+      <div className="relative flex-1 w-full flex items-center justify-center max-h-[280px] sm:max-h-[320px] min-h-0">
         <svg
           viewBox="0 0 680 570"
-          className="w-full h-full max-h-[380px] sm:max-h-[420px] drop-shadow-2xl select-none"
+          className="w-full h-full max-h-[280px] sm:max-h-[320px] drop-shadow-2xl select-none"
         >
           <defs>
             {/* Map gradient fill */}
@@ -315,48 +315,48 @@ export const BihSalesMap: React.FC = () => {
       </div>
 
       {/* Right Side: Selected Region Spotlight & Stats */}
-      <div className="w-full lg:w-80 flex flex-col justify-between bg-white/10 backdrop-blur-md rounded-2xl border border-white/15 p-4 sm:p-5 flex-shrink-0 animate-fade-in">
+      <div className="w-full md:w-72 bg-white/10 backdrop-blur-md rounded-2xl border border-white/15 p-3.5 sm:p-4 flex flex-col justify-between flex-shrink-0 animate-fade-in">
         
         {/* Hub Header */}
         <div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span
-                className="w-3.5 h-3.5 rounded-full shadow-sm"
+                className="w-3 h-3 rounded-full shadow-sm"
                 style={{ backgroundColor: selectedHub.color }}
               />
-              <span className="text-[11px] font-black uppercase tracking-wider text-brand-cyan">
+              <span className="text-[10px] font-black uppercase tracking-wider text-brand-cyan">
                 Regija {selectedHub.name}
               </span>
             </div>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-black bg-brand-green text-[#002B3D]">
+            <span className="px-2 py-0.5 rounded-full text-[11px] font-black bg-brand-green text-[#002B3D]">
               {selectedHub.branches} filijala
             </span>
           </div>
 
-          <h3 className="font-display font-black text-xl text-white mt-1">
+          <h3 className="font-display font-black text-lg text-white mt-1">
             {selectedHub.shortName}
           </h3>
 
-          <div className="mt-2.5 p-2 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2 text-xs text-slate-200">
-            <Users className="w-4 h-4 text-brand-green flex-shrink-0" />
+          <div className="mt-2 p-2 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2 text-xs text-slate-200">
+            <Users className="w-3.5 h-3.5 text-brand-green flex-shrink-0" />
             <div>
-              <div className="text-[10px] text-slate-400">Regionalni menadžer</div>
-              <div className="font-bold text-white">{selectedHub.manager}</div>
+              <div className="text-[9px] text-slate-400">Regionalni menadžer</div>
+              <div className="font-bold text-white text-xs">{selectedHub.manager}</div>
             </div>
           </div>
 
           {/* Cities / Municipalities Chips */}
-          <div className="mt-3">
-            <div className="text-[10px] font-bold uppercase text-slate-300 mb-1.5 flex items-center gap-1">
+          <div className="mt-2.5">
+            <div className="text-[9px] font-bold uppercase text-slate-300 mb-1 flex items-center gap-1">
               <MapPin className="w-3 h-3 text-brand-cyan" />
-              Obuhvaćene lokacije ({selectedHub.cities.length}):
+              Lokacije ({selectedHub.cities.length}):
             </div>
-            <div className="flex flex-wrap gap-1 max-h-28 overflow-y-auto pr-1 scrollbar-thin">
+            <div className="flex flex-wrap gap-1 max-h-20 overflow-y-auto pr-1 scrollbar-thin">
               {selectedHub.cities.map((city, idx) => (
                 <span
                   key={idx}
-                  className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-white/10 text-white border border-white/10"
+                  className="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-white/10 text-white border border-white/10"
                 >
                   {city}
                 </span>
@@ -366,14 +366,14 @@ export const BihSalesMap: React.FC = () => {
         </div>
 
         {/* Total Network Summary Footer */}
-        <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs">
+        <div className="mt-2.5 pt-2 border-t border-white/10 flex items-center justify-between text-xs">
           <div>
-            <div className="text-[10px] text-slate-400 uppercase">Ukupno RS</div>
-            <div className="font-black text-brand-green text-sm">61 Filijala</div>
+            <div className="text-[9px] text-slate-400 uppercase">Ukupno RS</div>
+            <div className="font-black text-brand-green text-xs">61 Filijala</div>
           </div>
           <div className="text-right">
-            <div className="text-[10px] text-slate-400 uppercase">Partnerstvo</div>
-            <div className="font-black text-brand-cyan text-sm">67 Pošta RS</div>
+            <div className="text-[9px] text-slate-400 uppercase">Partnerstvo</div>
+            <div className="font-black text-brand-cyan text-xs">67 Pošta RS</div>
           </div>
         </div>
 
