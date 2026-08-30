@@ -245,26 +245,35 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                     </h2>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 my-auto">
-                    {integrationSteps.map((step) => (
-                      <div
-                        key={step.step}
-                        className="p-3.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 transition-all hover:border-brand-green/50 group"
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="w-6 h-6 rounded-lg bg-brand-green text-[#002B3D] font-black text-xs flex items-center justify-center">
-                            {step.step}
-                          </span>
-                          <span className="text-[10px] text-slate-400 uppercase font-semibold">Korak {step.step}</span>
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 my-auto items-center">
+                    <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+                      {integrationSteps.map((step) => (
+                        <div
+                          key={step.step}
+                          className="p-3.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 transition-all hover:border-brand-green/50 group"
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="w-6 h-6 rounded-lg bg-brand-green text-[#002B3D] font-black text-xs flex items-center justify-center">
+                              {step.step}
+                            </span>
+                            <span className="text-[10px] text-slate-400 uppercase font-semibold">Korak {step.step}</span>
+                          </div>
+                          <h4 className="font-display font-bold text-sm text-white group-hover:text-brand-green transition-colors">
+                            {step.title}
+                          </h4>
+                          <p className="text-[11px] text-slate-300 mt-1 line-clamp-2">
+                            {step.desc}
+                          </p>
                         </div>
-                        <h4 className="font-display font-bold text-sm text-white group-hover:text-brand-green transition-colors">
-                          {step.title}
-                        </h4>
-                        <p className="text-[11px] text-slate-300 mt-1 line-clamp-2">
-                          {step.desc}
-                        </p>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
+                    <div className="hidden lg:flex lg:col-span-4 justify-center">
+                      <img
+                        src="/assets/illustrations/integration-process-shake.png"
+                        alt="Dobrodošlica i rukovanje pri integraciji"
+                        className="max-h-64 w-auto object-contain drop-shadow-glow-cyan"
+                      />
+                    </div>
                   </div>
 
                   <div className="text-xs text-slate-400 flex items-center gap-2">
@@ -447,11 +456,18 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               {/* SLIDE 8: Philosophy, Mission & Values */}
               {currentSlide === 8 && (
                 <div className="h-full flex flex-col justify-between py-2">
-                  <div>
-                    <span className="text-xs font-bold text-brand-cyan uppercase tracking-widest">Naši principi</span>
-                    <h2 className="text-2xl sm:text-3xl font-display font-black text-white tracking-tight">
-                      FILOZOFIJA, CILJ, MISIJA I VRIJEDNOSTI
-                    </h2>
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <span className="text-xs font-bold text-brand-cyan uppercase tracking-widest">Naši principi</span>
+                      <h2 className="text-2xl sm:text-3xl font-display font-black text-white tracking-tight">
+                        FILOZOFIJA, CILJ, MISIJA I VRIJEDNOSTI
+                      </h2>
+                    </div>
+                    <img
+                      src="/assets/illustrations/philosophy-growth-stairs.png"
+                      alt="Filozofija rasta i napretka"
+                      className="hidden sm:block h-20 lg:h-24 w-auto object-contain drop-shadow-glow-cyan flex-shrink-0"
+                    />
                   </div>
 
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 my-auto">
@@ -815,11 +831,18 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               {/* SLIDE 14: Mentor */}
               {currentSlide === 14 && (
                 <div className="h-full flex flex-col justify-between py-2">
-                  <div>
-                    <span className="text-xs font-bold text-brand-green uppercase tracking-widest">Podrška u radu</span>
-                    <h2 className="text-2xl sm:text-4xl font-display font-black text-white tracking-tight">
-                      TVOJI MENTORI
-                    </h2>
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <span className="text-xs font-bold text-brand-green uppercase tracking-widest">Podrška u radu</span>
+                      <h2 className="text-2xl sm:text-4xl font-display font-black text-white tracking-tight">
+                        TVOJI MENTORI
+                      </h2>
+                    </div>
+                    <img
+                      src="/assets/illustrations/team-collaboration-hexagons.png"
+                      alt="Timska saradnja i podrška"
+                      className="hidden sm:block h-20 lg:h-24 w-auto object-contain drop-shadow-glow-cyan flex-shrink-0"
+                    />
                   </div>
 
                   <div className="my-auto max-w-2xl mx-auto p-6 rounded-3xl bg-white/10 border-2 border-brand-green/40 shadow-2xl flex flex-col sm:flex-row items-center gap-6">
