@@ -3,7 +3,7 @@ import {
   ChevronLeft, ChevronRight, Maximize2, Minimize2, Grid, Sparkles, 
   Layers, Volume2, VolumeX, HelpCircle, ArrowRight, UserCheck, Trophy, Store,
   Building2, Users, Target, ShieldCheck, HeartHandshake, Eye, CheckCircle2,
-  Calendar, MapPin, Compass, Briefcase, Award, TrendingUp, Lightbulb, Download, Image as ImageIcon
+  Calendar, MapPin, Compass, Briefcase, Award, TrendingUp, Lightbulb, Download
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { EmployeeProfile } from '../types';
@@ -28,7 +28,6 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
   const [currentSlide, setCurrentSlide] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showGrid, setShowGrid] = useState(false);
-  const [showOriginalSlide, setShowOriginalSlide] = useState(false);
   const [activeMgmtIndex, setActiveMgmtIndex] = useState(0);
   const [selectedRegionIndex, setSelectedRegionIndex] = useState(0);
 
@@ -156,20 +155,6 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
             <span className="hidden sm:inline">Preuzmi PDF</span>
           </a>
 
-          {/* Toggle Original Slide View */}
-          <button
-            onClick={() => setShowOriginalSlide(prev => !prev)}
-            className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-              showOriginalSlide 
-                ? 'bg-brand-cyan text-white shadow-sm' 
-                : 'bg-white/10 text-slate-300 hover:bg-white/20'
-            }`}
-            title="Prebaci na originalni sken slajda"
-          >
-            <ImageIcon className="w-3.5 h-3.5" />
-            <span className="hidden lg:inline">{showOriginalSlide ? 'Digitalni prikaz' : 'Originalni slajd'}</span>
-          </button>
-
           {/* Sound Toggle */}
           {onToggleSound && (
             <button
@@ -209,19 +194,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
 
       {/* Slide Content Area */}
       <div className="flex-1 relative overflow-y-auto sm:overflow-hidden flex items-center justify-center p-4 sm:p-8 text-white w-full max-w-7xl mx-auto">
-          
-          {showOriginalSlide ? (
-            /* Original Slide Image Mode */
-            <div className="w-full h-full flex items-center justify-center bg-black/40 rounded-2xl p-2 animate-fade-in">
-              <img
-                src={`/assets/slides/slide-${String(currentSlide).padStart(2, '0')}.png`}
-                alt={`Slajd ${currentSlide}`}
-                className="max-h-full max-w-full object-contain rounded-xl shadow-2xl border border-white/10"
-              />
-            </div>
-          ) : (
-            /* Digital Modern Widescreen Slide Layouts */
-            <div className="w-full h-full flex flex-col justify-center animate-fade-in relative z-10">
+        <div className="w-full h-full flex flex-col justify-center animate-fade-in relative z-10">
               
               {/* SLIDE 1: Welcome Hero */}
               {currentSlide === 1 && (
@@ -1072,8 +1045,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               )}
 
             </div>
-          )}
-        </div>
+      </div>
 
       {/* Slide Footer Navigation Controls */}
       <div className="px-4 sm:px-6 py-2.5 bg-[#001D2B]/95 border-t border-white/10 flex items-center justify-between z-20 flex-shrink-0">
