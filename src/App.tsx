@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { SlideDeck } from './components/SlideDeck';
-import { defaultProfile } from './data/onboardingData';
 
 export const App: React.FC = () => {
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -8,7 +7,6 @@ export const App: React.FC = () => {
   return (
     <div className="h-screen w-screen bg-[#001D2B] overflow-hidden flex flex-col selection:bg-brand-green selection:text-brand-petrol">
       <SlideDeck
-        profile={defaultProfile}
         soundEnabled={soundEnabled}
         onToggleSound={() => setSoundEnabled(prev => !prev)}
       />

@@ -6,23 +6,19 @@ import {
   Calendar, MapPin, Compass, Briefcase, Award, TrendingUp, Lightbulb, Download
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { EmployeeProfile } from '../types';
 import { 
   managementTeam, companyMetrics, salesRegions, strategicGoals, 
   integrationSteps, companyValues, employeeBenefits, allColleagues 
 } from '../data/onboardingData';
-import { getWelcomeGreeting, getVocative, getGrammarTerms } from '../utils/grammar';
 import { playSound } from '../utils/audio';
 import { BihSalesMap } from './BihSalesMap';
 
 interface SlideDeckProps {
-  profile: EmployeeProfile;
   soundEnabled: boolean;
   onToggleSound?: () => void;
 }
 
 export const SlideDeck: React.FC<SlideDeckProps> = ({
-  profile,
   soundEnabled,
   onToggleSound,
 }) => {
@@ -30,12 +26,8 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showGrid, setShowGrid] = useState(false);
   const [activeMgmtIndex, setActiveMgmtIndex] = useState(0);
-  const [selectedRegionIndex, setSelectedRegionIndex] = useState(0);
 
   const totalSlides = 18;
-  const firstName = profile.name.split(' ')[0] || profile.name;
-  const vocative = getVocative(firstName, profile.gender);
-  const grammar = getGrammarTerms(profile.gender);
 
   const goToNext = useCallback(() => {
     if (currentSlide < totalSlides) {
@@ -224,36 +216,34 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               {/* SLIDE 1: Welcome Hero */}
               {currentSlide === 1 && (
                 <div className="h-full flex flex-col justify-between py-4">
-                  <div className="space-y-4 max-w-2xl">
+                  <div className="space-y-4 max-w-3xl">
                     <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-green/20 text-brand-green border border-brand-green/40 text-xs font-bold uppercase tracking-widest">
                       <Sparkles className="w-4 h-4" />
-                      Onboarding Prezentacija Dobrodošlice
+                      Onboarding Prezentacija
                     </div>
                     
-                    <h1 className="font-display font-black text-4xl sm:text-6xl text-white tracking-tight leading-none">
-                      <span className="text-brand-green block mb-2">{vocative.toUpperCase()},</span>
-                      {grammar.welcome.toUpperCase()} U TIM!
+                    <h1 className="font-display font-black text-4xl sm:text-6xl text-white tracking-tight leading-tight">
+                      DOBRODOŠLI U
+                      <span className="text-brand-green block mt-1">FLEX CREDIT TIM!</span>
                     </h1>
 
-                    <p className="text-slate-300 text-sm sm:text-lg max-w-xl leading-relaxed">
-                      Radujemo se što si postao/la dio najbrže rastuće mikrokreditne kompanije. Pred tobom je digitalni vodič kroz kulturu, tim i tvoju ulogu.
+                    <p className="text-slate-300 text-sm sm:text-lg max-w-2xl leading-relaxed">
+                      Pred vama je sveobuhvatni vodič kroz kompaniju, vrijednosti, organizacionu strukturu, prodajnu mrežu i ključne ciljeve za 2026. godinu.
                     </p>
                   </div>
 
                   <div className="pt-6 border-t border-white/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-2xl bg-brand-cyan/20 border border-brand-cyan/40 flex items-center justify-center text-brand-cyan">
-                        <Briefcase className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <div className="text-xs text-slate-400">Pozicija</div>
-                        <div className="text-sm font-bold text-white">{profile.role}</div>
-                      </div>
+                    <div className="flex items-center gap-3 text-xs text-slate-300">
+                      <span className="font-bold text-white">Dio MVF Finance grupacije</span>
+                      <span>•</span>
+                      <span>61 filijala</span>
+                      <span>•</span>
+                      <span>230 zaposlenih</span>
                     </div>
 
                     <button
                       onClick={goToNext}
-                      className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-green to-emerald-500 hover:brightness-110 text-[#002B3D] text-xs font-black shadow-lg hover:shadow-glow-green transition-all flex items-center gap-2"
+                      className="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-green to-emerald-500 hover:brightness-110 text-[#002B3D] text-sm font-black shadow-lg hover:shadow-glow-green transition-all flex items-center gap-2"
                     >
                       <span>Započni prezentaciju</span>
                       <ArrowRight className="w-4 h-4" />
@@ -645,10 +635,10 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                         <div className="text-[10px] text-slate-300">Planiranje · Računovodstvo</div>
                       </div>
 
-                      <div className="p-2.5 rounded-xl bg-emerald-500/20 border border-brand-green ring-1 ring-brand-green/50">
+                      <div className="p-2.5 rounded-xl bg-emerald-500/20 border border-brand-green/40">
                         <span className="text-[9px] font-black text-brand-green uppercase">Ljudski Resursi (HR)</span>
                         <div className="text-xs font-bold text-white mt-0.5">Sanja Knežević</div>
-                        <div className="text-[10px] text-slate-300 font-semibold">{profile.role}</div>
+                        <div className="text-[10px] text-slate-300">Regrutacija · Radni odnosi</div>
                       </div>
 
                       <div className="p-2.5 rounded-xl bg-amber-500/15 border border-amber-400/30">
@@ -701,22 +691,22 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
 
                   {/* Highlights Grid of Key Departments & Contacts */}
                   <div className="my-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 text-left">
-                    {/* Mentor Highlight */}
-                    <div className="p-3 rounded-2xl bg-emerald-500/20 border-2 border-brand-green shadow-lg flex items-center gap-3">
+                    {/* HR Team Highlight */}
+                    <div className="p-3 rounded-2xl bg-emerald-500/15 border border-brand-green/40 shadow-lg flex items-center gap-3">
                       <img src="/assets/team/aleksandra-antesevic.png" alt="Aleksandra" className="w-10 h-10 rounded-xl object-cover border border-brand-green" />
                       <div className="min-w-0">
-                        <span className="text-[9px] font-black text-brand-green uppercase">Tvoj Mentor</span>
-                        <h4 className="text-xs font-bold text-white truncate">{profile.mentorName}</h4>
-                        <p className="text-[10px] text-slate-300 truncate">{profile.mentorTitle}</p>
+                        <span className="text-[9px] font-black text-brand-green uppercase">Ljudski Resursi</span>
+                        <h4 className="text-xs font-bold text-white truncate">Aleksandra Antešević</h4>
+                        <p className="text-[10px] text-slate-300 truncate">HR & Radni odnosi</p>
                       </div>
                     </div>
 
-                    {/* HR Manager Highlight */}
+                    {/* HR Management Highlight */}
                     <div className="p-3 rounded-2xl bg-white/10 border border-brand-cyan/40 flex items-center gap-3">
                       <img src="/assets/team/sanja-knezevic.png" alt="Sanja" className="w-10 h-10 rounded-xl object-cover border border-brand-cyan" />
                       <div className="min-w-0">
                         <span className="text-[9px] font-black text-brand-cyan uppercase">Ljudski Resursi</span>
-                        <h4 className="text-xs font-bold text-white truncate">{profile.managerName}</h4>
+                        <h4 className="text-xs font-bold text-white truncate">Sanja Knežević</h4>
                         <p className="text-[10px] text-slate-300 truncate">Regionalni HR menadžer</p>
                       </div>
                     </div>
@@ -848,56 +838,49 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                 </div>
               )}
 
-              {/* SLIDE 14: Mentor */}
+              {/* SLIDE 14: Mentorship and Support */}
               {currentSlide === 14 && (
                 <div className="h-full flex flex-col justify-between py-2">
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <span className="text-xs font-bold text-brand-green uppercase tracking-widest">Podrška u radu</span>
-                      <h2 className="text-2xl sm:text-4xl font-display font-black text-white tracking-tight">
-                        TVOJI MENTORI
+                      <h2 className="text-2xl sm:text-3xl font-display font-black text-white tracking-tight">
+                        SISTEM MENTORSTVA I PODRŠKE
                       </h2>
                     </div>
-                    <img
-                      src="/assets/illustrations/team-collaboration-hexagons.png"
-                      alt="Timska saradnja i podrška"
-                      className="hidden sm:block h-20 lg:h-24 w-auto object-contain drop-shadow-glow-cyan flex-shrink-0"
-                    />
+                    <span className="text-xs font-bold bg-white/10 px-3 py-1 rounded-full text-brand-green hidden sm:inline">
+                      Kontinuirana integracija
+                    </span>
                   </div>
 
-                  <div className="my-auto max-w-2xl mx-auto p-6 rounded-3xl bg-white/10 border-2 border-brand-green/40 shadow-2xl flex flex-col sm:flex-row items-center gap-6">
-                    <div className="relative flex-shrink-0">
-                      {profile.mentorPhoto ? (
-                        <img
-                          src={profile.mentorPhoto}
-                          alt={profile.mentorName}
-                          className="w-28 h-28 rounded-2xl object-cover border-2 border-brand-green shadow-lg"
-                        />
-                      ) : (
-                        <div className="w-28 h-28 rounded-2xl bg-brand-petrol text-brand-green flex items-center justify-center font-display font-black text-2xl border-2 border-brand-green">
-                          {profile.mentorName.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                        </div>
-                      )}
-                      <span className="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-full bg-brand-green text-[#002B3D] text-[10px] font-black shadow-sm">
-                        MENTOR
-                      </span>
+                  <div className="my-auto grid grid-cols-1 sm:grid-cols-3 gap-3.5 max-w-4xl mx-auto w-full">
+                    <div className="p-4 rounded-2xl bg-white/10 border border-brand-green/40 shadow-lg space-y-2">
+                      <div className="w-9 h-9 rounded-xl bg-brand-green/20 text-brand-green flex items-center justify-center font-bold text-sm">01</div>
+                      <h3 className="font-display font-bold text-sm text-white">Direktni mentor</h3>
+                      <p className="text-xs text-slate-200 leading-relaxed">
+                        Svakodnevno uvođenje u radne procese, alate, standarde komunikacije i konkretne zadatke.
+                      </p>
                     </div>
 
-                    <div className="space-y-2 text-center sm:text-left">
-                      <h3 className="font-display font-bold text-xl sm:text-2xl text-white">
-                        {grammar.mentorHeader} je <span className="text-brand-green">{profile.mentorName}</span>.
-                      </h3>
-                      <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
-                        {profile.mentorDescription}
+                    <div className="p-4 rounded-2xl bg-white/10 border border-brand-cyan/40 shadow-lg space-y-2">
+                      <div className="w-9 h-9 rounded-xl bg-brand-cyan/20 text-brand-cyan flex items-center justify-center font-bold text-sm">02</div>
+                      <h3 className="font-display font-bold text-sm text-white">Rukovodilac sektora</h3>
+                      <p className="text-xs text-slate-200 leading-relaxed">
+                        Strateško vođenje, postavljanje jasnih ciljeva, praćenje razvoja i podrška u profesionalnom rastu.
                       </p>
-                      <div className="pt-2 text-xs text-brand-cyan font-semibold">
-                        Slobodno se obrati u svakom trenutku za bilo koje pitanje ili savjet.
-                      </div>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-white/10 border border-purple-400/40 shadow-lg space-y-2">
+                      <div className="w-9 h-9 rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center font-bold text-sm">03</div>
+                      <h3 className="font-display font-bold text-sm text-white">Tim & HR podrška</h3>
+                      <p className="text-xs text-slate-200 leading-relaxed">
+                        Kolegijalna atmosfera, kontinuirane edukacije i otvorena vrata za sva pitanja u svakom trenutku.
+                      </p>
                     </div>
                   </div>
 
                   <div className="text-xs text-slate-400 text-center">
-                    Mentorski program ti garantuje sigurnost i kontinuiran napredak tokom prva 3 mjeseca.
+                    Strukturisani mentorski program garantuje sigurnost, stabilnost i brz napredak novih kolega.
                   </div>
                 </div>
               )}
@@ -906,30 +889,30 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               {currentSlide === 15 && (
                 <div className="h-full flex flex-col justify-between py-2">
                   <div>
-                    <span className="text-xs font-bold text-brand-cyan uppercase tracking-widest">Odgovornost i svrha</span>
-                    <h2 className="text-2xl sm:text-4xl font-display font-black text-white tracking-tight">
-                      TVOJA ULOGA: <span className="text-brand-green">{profile.role.toUpperCase()}</span>
+                    <span className="text-xs font-bold text-brand-cyan uppercase tracking-widest">Odgovornost i doprinos</span>
+                    <h2 className="text-2xl sm:text-3xl font-display font-black text-white tracking-tight">
+                      TVOJA ULOGA U KOMPANIJI
                     </h2>
                   </div>
 
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 my-auto items-center">
-                    <div className="lg:col-span-8 space-y-3.5">
-                      <div className="p-4 rounded-2xl bg-white/10 border border-white/15">
-                        <h4 className="text-xs font-bold text-brand-green uppercase mb-1">Svrha radnog mjesta</h4>
+                    <div className="lg:col-span-8 space-y-3">
+                      <div className="p-3.5 rounded-2xl bg-white/10 border border-white/15">
+                        <h4 className="text-xs font-bold text-brand-green uppercase mb-1">Svrha i odgovornost</h4>
                         <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
-                          Svrha tvog radnog mjesta je da obezbijediš zakonito, pravedno i strateški usklađeno upravljanje radnim procesima, pri čemu ćeš štititi interese kompanije, ali i prava zaposlenih i klijenata.
+                          Profesionalno, zakonito i strateški usklađeno djelovanje uz visoke etičke standarde, štiteći interese kompanije i obezbjeđujući najbolje iskustvo za naše klijente.
                         </p>
                       </div>
 
-                      <div className="p-4 rounded-2xl bg-white/10 border border-white/15">
-                        <h4 className="text-xs font-bold text-brand-cyan uppercase mb-1">Kako to postižemo?</h4>
+                      <div className="p-3.5 rounded-2xl bg-white/10 border border-white/15">
+                        <h4 className="text-xs font-bold text-brand-cyan uppercase mb-1">Ključ uspjeha</h4>
                         <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
-                          To ćeš postići kroz kontinuiran, istrajan i posvećen rad te uspostavljanje odnosa povjerenja s kolegama.
+                          Kontinuiran, posvećen rad, građenje povjerenja u timu i proaktivan pristup u rješavanju svih poslovnih izazova.
                         </p>
                       </div>
 
-                      <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-300">
-                        Podrška mentora: <strong>{profile.mentorName}</strong> · Rukovodilac: <strong>{profile.managerName}</strong>
+                      <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-300">
+                        Zajednički cilj: <strong>Stabilnost, efikasnost i liderska pozicija na tržištu</strong>
                       </div>
                     </div>
 
@@ -937,7 +920,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                       <img
                         src="/assets/illustrations/employee-role-dashboard.png"
                         alt="Tvoja uloga"
-                        className="max-h-60 w-auto object-contain rounded-2xl shadow-xl"
+                        className="max-h-52 w-auto object-contain rounded-2xl shadow-xl"
                       />
                     </div>
                   </div>
@@ -1031,12 +1014,12 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                   </div>
 
                   <div className="space-y-4 max-w-2xl">
-                    <h2 className="text-3xl sm:text-6xl font-display font-black text-white tracking-tight leading-tight">
-                      RADUJEMO SE RADU S TOBOM,
-                      <span className="text-brand-green block mt-1">{vocative.toUpperCase()}!</span>
+                    <h2 className="text-3xl sm:text-5xl font-display font-black text-white tracking-tight leading-tight">
+                      RADUJEMO SE RADU SA VAMA,
+                      <span className="text-brand-green block mt-1">DOBRODOŠLI U TIM!</span>
                     </h2>
-                    <p className="text-slate-200 text-sm sm:text-base max-w-lg mx-auto">
-                      Tvoj doprinos na poziciji <strong>{profile.role}</strong> čini naš tim još jačim i uspješnijim.
+                    <p className="text-slate-200 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+                      Zajedno gradimo najbrže rastuću mikrokreditnu organizaciju, pružamo vrhunsku finansijsku uslugu i stvaramo dugoročne uspjehe.
                     </p>
                   </div>
 
