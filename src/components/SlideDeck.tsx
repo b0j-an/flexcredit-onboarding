@@ -1048,55 +1048,6 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
             </div>
       </div>
 
-      {/* Slide Footer Navigation Controls */}
-      <div className="px-4 sm:px-6 py-2.5 bg-[#001D2B]/95 border-t border-white/10 flex items-center justify-between z-20 flex-shrink-0">
-        
-        <button
-          onClick={goToPrev}
-          disabled={currentSlide === 1}
-          className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
-            currentSlide === 1
-              ? 'opacity-40 cursor-not-allowed text-slate-500'
-              : 'bg-white/10 hover:bg-white/20 text-white'
-          }`}
-        >
-          <ChevronLeft className="w-4 h-4" />
-          <span className="hidden sm:inline">Prethodni</span>
-        </button>
-
-        {/* Slide dots indicator */}
-        <div className="flex items-center gap-1 overflow-x-auto max-w-md px-2 scrollbar-none">
-          {Array.from({ length: totalSlides }, (_, i) => i + 1).map((num) => (
-            <button
-              key={num}
-              onClick={() => {
-                setCurrentSlide(num);
-                playSound('slide', soundEnabled);
-              }}
-              className={`h-2 rounded-full transition-all ${
-                currentSlide === num
-                  ? 'w-6 bg-brand-green'
-                  : 'w-2 bg-white/20 hover:bg-white/40'
-              }`}
-              title={`Idi na slajd ${num}: ${slideTitles[num - 1]}`}
-            />
-          ))}
-        </div>
-
-        <button
-          onClick={goToNext}
-          disabled={currentSlide === totalSlides}
-          className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
-            currentSlide === totalSlides
-              ? 'opacity-40 cursor-not-allowed text-slate-500'
-              : 'bg-gradient-to-r from-brand-green to-emerald-500 hover:brightness-110 text-[#002B3D] font-black shadow-md'
-          }`}
-        >
-          <span className="hidden sm:inline">Sljedeći</span>
-          <ChevronRight className="w-4 h-4" />
-        </button>
-
-      </div>
 
       {/* Thumbnail Drawer Modal */}
       {showGrid && (
