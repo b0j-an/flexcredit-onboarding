@@ -13,6 +13,7 @@ import {
 } from '../data/onboardingData';
 import { getWelcomeGreeting, getVocative, getGrammarTerms } from '../utils/grammar';
 import { playSound } from '../utils/audio';
+import { BihSalesMap } from './BihSalesMap';
 
 interface SlideDeckProps {
   profile: EmployeeProfile;
@@ -505,39 +506,32 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
 
               {/* SLIDE 9: Sales Network 2026 */}
               {currentSlide === 9 && (
-                <div className="h-full flex flex-col justify-between py-2">
-                  <div className="flex items-center justify-between">
+                <div className="h-full flex flex-col justify-between py-1 sm:py-2">
+                  <div className="flex items-center justify-between flex-shrink-0">
                     <div>
                       <span className="text-xs font-bold text-brand-green uppercase tracking-widest">Regionalna pokrivenost</span>
-                      <h2 className="text-2xl sm:text-3xl font-display font-black text-white tracking-tight">
+                      <h2 className="text-xl sm:text-3xl font-display font-black text-white tracking-tight">
                         PRODAJNA MREŽA 2026. GODINE
                       </h2>
                     </div>
-                    <span className="text-xs font-bold text-brand-cyan bg-white/10 px-3 py-1 rounded-full">
-                      7 Prodajnih Regija
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-black text-brand-green bg-brand-green/20 border border-brand-green/40 px-3 py-1 rounded-full">
+                        61 Filijala
+                      </span>
+                      <span className="text-xs font-bold text-brand-cyan bg-white/10 px-3 py-1 rounded-full hidden sm:inline">
+                        7 Regija
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 my-auto">
-                    {salesRegions.map((region) => (
-                      <div
-                        key={region.id}
-                        className="p-3 rounded-2xl bg-white/10 border border-white/10 text-center flex flex-col justify-between hover:bg-white/20 transition-all"
-                      >
-                        <div 
-                          className="w-3 h-3 rounded-full mx-auto mb-2"
-                          style={{ backgroundColor: region.color }}
-                        />
-                        <div className="font-display font-bold text-xs text-white">{region.name.replace('Area ', '')}</div>
-                        <div className="text-[10px] text-slate-300 mt-1 truncate">{region.manager}</div>
-                        <div className="mt-2 text-[11px] font-black text-brand-green">{region.branches} filijala</div>
-                      </div>
-                    ))}
+                  {/* Interactive Vector Map with City Hub Circles */}
+                  <div className="flex-1 my-auto w-full min-h-0 flex items-center justify-center">
+                    <BihSalesMap />
                   </div>
 
-                  <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-300 flex items-center justify-between">
+                  <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-300 flex items-center justify-between flex-shrink-0">
                     <span>Sinergija: <strong>61 filijala</strong> + <strong>67 Pošta RS lokacija</strong></span>
-                    <span className="text-brand-green font-bold">Lider po broju filijala</span>
+                    <span className="text-brand-green font-bold">Lider u Republici Srpskoj</span>
                   </div>
                 </div>
               )}
