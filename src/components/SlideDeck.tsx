@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { 
   ChevronLeft, ChevronRight, Maximize2, Minimize2, Grid, Sparkles, 
-  Layers, Volume2, HelpCircle, ArrowRight, UserCheck, Trophy, Store,
+  Layers, Volume2, VolumeX, HelpCircle, ArrowRight, UserCheck, Trophy, Store,
   Building2, Users, Target, ShieldCheck, HeartHandshake, Eye, CheckCircle2,
   Calendar, MapPin, Compass, Briefcase, Award, TrendingUp, Lightbulb, Download, Image as ImageIcon
 } from 'lucide-react';
@@ -17,11 +17,13 @@ import { playSound } from '../utils/audio';
 interface SlideDeckProps {
   profile: EmployeeProfile;
   soundEnabled: boolean;
+  onToggleSound?: () => void;
 }
 
 export const SlideDeck: React.FC<SlideDeckProps> = ({
   profile,
   soundEnabled,
+  onToggleSound,
 }) => {
   const [currentSlide, setCurrentSlide] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -121,63 +123,92 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center p-3 sm:p-6 max-w-7xl mx-auto w-full">
+    <div className="w-full h-full flex flex-col bg-[#002434] relative overflow-hidden select-none">
       
-      {/* Presentation Container (16:9 Widescreen Ratio Frame) */}
-      <div className="w-full bg-[#002434] rounded-3xl shadow-2xl overflow-hidden border border-cyan-500/20 flex flex-col relative aspect-[16/9] min-h-[580px] max-h-[820px]">
-        
-        {/* Slide Header Toolbar */}
-        <div className="px-6 py-3 bg-[#001D2B]/90 border-b border-white/10 flex items-center justify-between z-20">
-          <div className="flex items-center gap-3">
+      {/* Slide Header Toolbar */}
+      <div className="px-4 sm:px-6 py-2.5 bg-[#001D2B]/95 border-b border-white/10 flex items-center justify-between z-20 flex-shrink-0">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <img 
               src="/assets/branding/flexcredit-symbol.png" 
               alt="Logo" 
-              className="h-6 w-auto object-contain" 
+              className="h-6 w-auto object-contain brightness-110" 
             />
-            <span className="text-xs font-bold uppercase tracking-widest text-slate-300 hidden sm:inline">
-              Slajd {currentSlide} / {totalSlides} · <span className="text-brand-green">{slideTitles[currentSlide - 1]}</span>
+            <span className="font-display font-black text-sm tracking-tight text-white hidden sm:inline">
+              FLEX<span className="text-brand-green">CREDIT</span>
             </span>
           </div>
-
-          <div className="flex items-center gap-2">
-            {/* Toggle Original Slide View */}
-            <button
-              onClick={() => setShowOriginalSlide(prev => !prev)}
-              className={`px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                showOriginalSlide 
-                  ? 'bg-brand-cyan text-white shadow-sm' 
-                  : 'bg-white/10 text-slate-300 hover:bg-white/20'
-              }`}
-              title="Prebaci na originalni sken slajda"
-            >
-              <ImageIcon className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">{showOriginalSlide ? 'Digitalni dizajn' : 'Originalni slajd'}</span>
-            </button>
-
-            {/* Grid Overview Button */}
-            <button
-              onClick={() => setShowGrid(prev => !prev)}
-              className={`p-1.5 rounded-lg text-xs transition-colors ${
-                showGrid ? 'bg-brand-green text-[#002B3D]' : 'bg-white/10 text-slate-300 hover:bg-white/20'
-              }`}
-              title="Pregled svih slajdova (G)"
-            >
-              <Grid className="w-4 h-4" />
-            </button>
-
-            {/* Fullscreen Button */}
-            <button
-              onClick={toggleFullscreen}
-              className="p-1.5 rounded-lg bg-white/10 text-slate-300 hover:bg-white/20 transition-colors"
-              title="Cijeli ekran (F)"
-            >
-              {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-            </button>
-          </div>
+          <span className="hidden sm:inline text-white/20">|</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-slate-300">
+            Slajd {currentSlide} / {totalSlides} · <span className="text-brand-green">{slideTitles[currentSlide - 1]}</span>
+          </span>
         </div>
 
-        {/* Slide Content Area */}
-        <div className="flex-1 relative overflow-hidden flex items-center justify-center p-6 sm:p-10 text-white">
+        <div className="flex items-center gap-2">
+          {/* Download PDF Button */}
+          <a
+            href="/FlexCredit-Dobrodoslica.pdf"
+            download="FlexCredit-Dobrodoslica.pdf"
+            className="px-3 py-1 rounded-lg bg-gradient-to-r from-brand-green to-emerald-500 hover:brightness-110 text-[#002B3D] text-xs font-black flex items-center gap-1.5 shadow-sm transition-all"
+            title="Preuzmi prezentaciju kao PDF"
+          >
+            <Download className="w-3.5 h-3.5 text-[#002B3D]" />
+            <span className="hidden sm:inline">Preuzmi PDF</span>
+          </a>
+
+          {/* Toggle Original Slide View */}
+          <button
+            onClick={() => setShowOriginalSlide(prev => !prev)}
+            className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+              showOriginalSlide 
+                ? 'bg-brand-cyan text-white shadow-sm' 
+                : 'bg-white/10 text-slate-300 hover:bg-white/20'
+            }`}
+            title="Prebaci na originalni sken slajda"
+          >
+            <ImageIcon className="w-3.5 h-3.5" />
+            <span className="hidden lg:inline">{showOriginalSlide ? 'Digitalni prikaz' : 'Originalni slajd'}</span>
+          </button>
+
+          {/* Sound Toggle */}
+          {onToggleSound && (
+            <button
+              onClick={onToggleSound}
+              className={`p-1.5 rounded-lg text-xs transition-colors ${
+                soundEnabled
+                  ? 'bg-white/10 text-brand-cyan hover:bg-white/20'
+                  : 'bg-white/5 text-slate-400 hover:bg-white/10'
+              }`}
+              title={soundEnabled ? 'Isključi zvučne efekte' : 'Uključi zvučne efekte'}
+            >
+              {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+            </button>
+          )}
+
+          {/* Grid Overview Button */}
+          <button
+            onClick={() => setShowGrid(prev => !prev)}
+            className={`p-1.5 rounded-lg text-xs transition-colors ${
+              showGrid ? 'bg-brand-green text-[#002B3D]' : 'bg-white/10 text-slate-300 hover:bg-white/20'
+            }`}
+            title="Pregled svih slajdova (G)"
+          >
+            <Grid className="w-4 h-4" />
+          </button>
+
+          {/* Fullscreen Button */}
+          <button
+            onClick={toggleFullscreen}
+            className="p-1.5 rounded-lg bg-white/10 text-slate-300 hover:bg-white/20 transition-colors"
+            title="Cijeli ekran (F)"
+          >
+            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Slide Content Area */}
+      <div className="flex-1 relative overflow-y-auto sm:overflow-hidden flex items-center justify-center p-4 sm:p-8 text-white w-full max-w-7xl mx-auto">
           
           {showOriginalSlide ? (
             /* Original Slide Image Mode */
@@ -1044,101 +1075,93 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
           )}
         </div>
 
-        {/* Slide Footer Navigation Controls */}
-        <div className="px-6 py-3.5 bg-[#001D2B]/95 border-t border-white/10 flex items-center justify-between z-20">
-          
-          <button
-            onClick={goToPrev}
-            disabled={currentSlide === 1}
-            className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
-              currentSlide === 1
-                ? 'opacity-40 cursor-not-allowed text-slate-500'
-                : 'bg-white/10 hover:bg-white/20 text-white'
-            }`}
-          >
-            <ChevronLeft className="w-4 h-4" />
-            <span>Prethodni</span>
-          </button>
+      {/* Slide Footer Navigation Controls */}
+      <div className="px-4 sm:px-6 py-2.5 bg-[#001D2B]/95 border-t border-white/10 flex items-center justify-between z-20 flex-shrink-0">
+        
+        <button
+          onClick={goToPrev}
+          disabled={currentSlide === 1}
+          className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
+            currentSlide === 1
+              ? 'opacity-40 cursor-not-allowed text-slate-500'
+              : 'bg-white/10 hover:bg-white/20 text-white'
+          }`}
+        >
+          <ChevronLeft className="w-4 h-4" />
+          <span className="hidden sm:inline">Prethodni</span>
+        </button>
 
-          {/* Slide dots indicator */}
-          <div className="flex items-center gap-1 overflow-x-auto max-w-md px-2 scrollbar-none">
+        {/* Slide dots indicator */}
+        <div className="flex items-center gap-1 overflow-x-auto max-w-md px-2 scrollbar-none">
+          {Array.from({ length: totalSlides }, (_, i) => i + 1).map((num) => (
+            <button
+              key={num}
+              onClick={() => {
+                setCurrentSlide(num);
+                playSound('slide', soundEnabled);
+              }}
+              className={`h-2 rounded-full transition-all ${
+                currentSlide === num
+                  ? 'w-6 bg-brand-green'
+                  : 'w-2 bg-white/20 hover:bg-white/40'
+              }`}
+              title={`Idi na slajd ${num}: ${slideTitles[num - 1]}`}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={goToNext}
+          disabled={currentSlide === totalSlides}
+          className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
+            currentSlide === totalSlides
+              ? 'opacity-40 cursor-not-allowed text-slate-500'
+              : 'bg-gradient-to-r from-brand-green to-emerald-500 hover:brightness-110 text-[#002B3D] font-black shadow-md'
+          }`}
+        >
+          <span className="hidden sm:inline">Sljedeći</span>
+          <ChevronRight className="w-4 h-4" />
+        </button>
+
+      </div>
+
+      {/* Thumbnail Drawer Modal */}
+      {showGrid && (
+        <div className="absolute inset-0 z-30 bg-[#001D2B]/95 backdrop-blur-md p-6 overflow-y-auto animate-fade-in flex flex-col">
+          <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
+            <h3 className="font-display font-bold text-lg text-white">Pregled svih slajdova (18)</h3>
+            <button
+              onClick={() => setShowGrid(false)}
+              className="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold text-white"
+            >
+              Zatvori pregled
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 flex-1">
             {Array.from({ length: totalSlides }, (_, i) => i + 1).map((num) => (
               <button
                 key={num}
                 onClick={() => {
                   setCurrentSlide(num);
+                  setShowGrid(false);
                   playSound('slide', soundEnabled);
                 }}
-                className={`h-2 rounded-full transition-all ${
+                className={`p-2.5 rounded-xl border text-left flex flex-col justify-between transition-all aspect-video ${
                   currentSlide === num
-                    ? 'w-6 bg-brand-green'
-                    : 'w-2 bg-white/20 hover:bg-white/40'
+                    ? 'bg-brand-green/20 border-brand-green text-white ring-2 ring-brand-green/40'
+                    : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300'
                 }`}
-                title={`Idi na slajd ${num}: ${slideTitles[num - 1]}`}
-              />
+              >
+                <span className="text-[10px] font-black text-brand-cyan">Slajd {num}</span>
+                <p className="text-[11px] font-bold text-white line-clamp-2 mt-1">
+                  {slideTitles[num - 1]}
+                </p>
+              </button>
             ))}
           </div>
-
-          <button
-            onClick={goToNext}
-            disabled={currentSlide === totalSlides}
-            className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
-              currentSlide === totalSlides
-                ? 'opacity-40 cursor-not-allowed text-slate-500'
-                : 'bg-brand-green hover:bg-brand-green-light text-[#002B3D] font-black shadow-md'
-            }`}
-          >
-            <span>Sljedeći</span>
-            <ChevronRight className="w-4 h-4" />
-          </button>
-
         </div>
-
-        {/* Thumbnail Drawer Modal */}
-        {showGrid && (
-          <div className="absolute inset-0 z-30 bg-[#001D2B]/95 backdrop-blur-md p-6 overflow-y-auto animate-fade-in flex flex-col">
-            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
-              <h3 className="font-display font-bold text-lg text-white">Pregled svih slajdova (18)</h3>
-              <button
-                onClick={() => setShowGrid(false)}
-                className="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold text-white"
-              >
-                Zatvori pregled
-              </button>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 flex-1">
-              {Array.from({ length: totalSlides }, (_, i) => i + 1).map((num) => (
-                <button
-                  key={num}
-                  onClick={() => {
-                    setCurrentSlide(num);
-                    setShowGrid(false);
-                    playSound('slide', soundEnabled);
-                  }}
-                  className={`p-2.5 rounded-xl border text-left flex flex-col justify-between transition-all aspect-video ${
-                    currentSlide === num
-                      ? 'bg-brand-green/20 border-brand-green text-white ring-2 ring-brand-green/40'
-                      : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300'
-                  }`}
-                >
-                  <span className="text-[10px] font-black text-brand-cyan">Slajd {num}</span>
-                  <p className="text-[11px] font-bold text-white line-clamp-2 mt-1">
-                    {slideTitles[num - 1]}
-                  </p>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-      </div>
-
-      {/* Slide Navigation Hints */}
-      <div className="w-full flex items-center justify-between text-xs text-slate-500 mt-3 px-2">
-        <span>Prečice: <strong>← →</strong> ili <strong>Space</strong> za listanje · <strong>F</strong> cijeli ekran · <strong>G</strong> rešetka</span>
-        <span className="text-brand-petrol font-semibold">Flex Credit Onboarding 2026</span>
-      </div>
+      )}
 
     </div>
   );
