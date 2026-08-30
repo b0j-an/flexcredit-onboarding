@@ -233,8 +233,8 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
       </div>
 
       {/* Slide Content Area with Floating Navigation Arrows */}
-      <div 
-        className="flex-1 relative overflow-hidden flex items-center justify-center p-2 sm:p-6 text-white w-full max-w-7xl mx-auto min-h-0"
+      <div
+        className="flex-1 relative overflow-hidden flex items-center justify-center p-2 sm:p-6 text-white w-full max-w-6xl mx-auto min-h-0"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -244,7 +244,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
         {currentSlide > 1 && (
           <button
             onClick={goToPrev}
-            className="hidden md:flex absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 p-3 sm:p-4 rounded-2xl bg-[#001D2B]/90 hover:bg-brand-cyan text-slate-300 hover:text-[#002B3D] border border-white/15 backdrop-blur-md shadow-2xl transition-all duration-200 hover:scale-110 group items-center justify-center"
+            className="hidden md:flex absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 p-3 sm:p-4 rounded-2xl bg-[#001D2B]/90 hover:bg-brand-cyan text-slate-300 hover:text-[#002B3D] border border-white/15 backdrop-blur-md shadow-2xl transition-all duration-200 hover:scale-110 group items-center justify-center"
             title="Prethodni slajd (←)"
           >
             <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 group-hover:-translate-x-0.5 transition-transform" />
@@ -255,7 +255,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
         {currentSlide < totalSlides && (
           <button
             onClick={goToNext}
-            className="hidden md:flex absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 p-3 sm:p-4 rounded-2xl bg-brand-green hover:bg-brand-green text-[#002B3D] border border-brand-green/40 backdrop-blur-md shadow-glow-green transition-all duration-200 hover:scale-110 group items-center justify-center"
+            className="hidden md:flex absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 p-3 sm:p-4 rounded-2xl bg-brand-green hover:bg-brand-green text-[#002B3D] border border-brand-green/40 backdrop-blur-md shadow-glow-green transition-all duration-200 hover:scale-110 group items-center justify-center"
             title="Sljedeći slajd (→ ili Space)"
           >
             <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 group-hover:translate-x-0.5 transition-transform" />
@@ -263,7 +263,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
         )}
 
         {/* Slide Stage */}
-        <div className="w-full h-full flex flex-col justify-center animate-fade-in relative z-10 px-3 sm:px-12 md:px-16 min-h-0 overflow-hidden">
+        <div className="w-full h-full flex flex-col justify-center animate-fade-in relative z-10 px-4 sm:px-16 md:px-24 lg:px-28 min-h-0 overflow-hidden">
               
               {/* SLIDE 1: Welcome Hero */}
               {currentSlide === 1 && (
@@ -525,42 +525,45 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               {/* SLIDE 8: Philosophy, Mission & Values */}
               {currentSlide === 8 && (
                 <div className="h-full flex flex-col justify-between py-2">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <span className="text-xs font-bold text-brand-cyan uppercase tracking-widest">Naši principi</span>
-                      <h2 className="text-2xl sm:text-3xl font-display font-black text-white tracking-tight">
-                        FILOZOFIJA, CILJ, MISIJA I VRIJEDNOSTI
-                      </h2>
-                    </div>
-                    <img
-                      src="/assets/illustrations/philosophy-growth-stairs.png"
-                      alt="Filozofija rasta i napretka"
-                      className="hidden sm:block h-20 lg:h-24 w-auto object-contain drop-shadow-glow-cyan flex-shrink-0"
-                    />
+                  <div>
+                    <span className="text-xs font-bold text-brand-cyan uppercase tracking-widest">Naši principi</span>
+                    <h2 className="text-2xl sm:text-3xl font-display font-black text-white tracking-tight">
+                      FILOZOFIJA, CILJ, MISIJA I VRIJEDNOSTI
+                    </h2>
                   </div>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 my-auto">
-                    {/* Mission & Purpose */}
-                    <div className="p-4 rounded-2xl bg-white/10 border border-white/15 space-y-2.5">
-                      <div className="text-xs font-bold text-brand-green uppercase">Misija i Filozofija</div>
-                      <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
-                        Cijenimo svaki minut vremena naših klijenata, stoga im obezbjeđujemo potrebna sredstva za kratko vrijeme, bez komplikovanih procedura.
-                      </p>
-                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                        Nudeći inovativne finansijske usluge, cilj nam je obezbijediti finansijsku stabilnost svakom klijentu uz dostupnost proizvoda prilagođenih socijalnom statusu.
-                      </p>
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 my-auto items-center">
+                    <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Mission & Purpose */}
+                      <div className="p-4 rounded-2xl bg-white/10 border border-white/15 space-y-2.5">
+                        <div className="text-xs font-bold text-brand-green uppercase">Misija i Filozofija</div>
+                        <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                          Cijenimo svaki minut vremena naših klijenata, stoga im obezbjeđujemo potrebna sredstva za kratko vrijeme, bez komplikovanih procedura.
+                        </p>
+                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                          Nudeći inovativne finansijske usluge, cilj nam je obezbijediti finansijsku stabilnost svakom klijentu uz dostupnost proizvoda prilagođenih socijalnom statusu.
+                        </p>
+                      </div>
+
+                      {/* 4 Values */}
+                      <div className="p-4 rounded-2xl bg-white/10 border border-white/15 space-y-2">
+                        <div className="text-xs font-bold text-brand-cyan uppercase">Vrijednosti koje njegujemo</div>
+                        <div className="grid grid-cols-2 gap-2 text-xs">
+                          {companyValues.map((val, idx) => (
+                            <div key={idx} className="p-2 rounded-xl bg-white/5 border border-white/10">
+                              <span className="font-bold text-white block">• {val.title}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
 
-                    {/* 4 Values */}
-                    <div className="p-4 rounded-2xl bg-white/10 border border-white/15 space-y-2">
-                      <div className="text-xs font-bold text-brand-cyan uppercase">Vrijednosti koje njegujemo</div>
-                      <div className="grid grid-cols-2 gap-2 text-xs">
-                        {companyValues.map((val, idx) => (
-                          <div key={idx} className="p-2 rounded-xl bg-white/5 border border-white/10">
-                            <span className="font-bold text-white block">• {val.title}</span>
-                          </div>
-                        ))}
-                      </div>
+                    <div className="hidden lg:flex lg:col-span-4 justify-center">
+                      <img
+                        src="/assets/illustrations/philosophy-growth-stairs.png"
+                        alt="Filozofija rasta i napretka"
+                        className="max-h-64 xl:max-h-72 w-auto object-contain drop-shadow-glow-cyan"
+                      />
                     </div>
                   </div>
 
@@ -573,21 +576,20 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               {/* SLIDE 9: Sales Network 2026 */}
               {currentSlide === 9 && (
                 <div className="h-full flex flex-col justify-between py-1 sm:py-2">
-                  <div className="flex items-center justify-between flex-shrink-0">
-                    <div>
-                      <span className="text-xs font-bold text-brand-green uppercase tracking-widest">Regionalna pokrivenost</span>
-                      <h2 className="text-xl sm:text-3xl font-display font-black text-white tracking-tight">
-                        PRODAJNA MREŽA 2026. GODINE
-                      </h2>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-black text-brand-green bg-brand-green/20 border border-brand-green/40 px-3 py-1 rounded-full">
-                        61 Filijala
-                      </span>
-                      <span className="text-xs font-bold text-brand-cyan bg-white/10 px-3 py-1 rounded-full hidden sm:inline">
-                        7 Regija
-                      </span>
-                    </div>
+                  <div className="flex-shrink-0">
+                    <span className="text-xs font-bold text-brand-green uppercase tracking-widest">Regionalna pokrivenost</span>
+                    <h2 className="text-xl sm:text-3xl font-display font-black text-white tracking-tight">
+                      PRODAJNA MREŽA 2026. GODINE
+                    </h2>
+                  </div>
+
+                  <div className="flex items-center justify-center gap-2 flex-shrink-0">
+                    <span className="text-xs font-black text-brand-green bg-brand-green/20 border border-brand-green/40 px-3 py-1 rounded-full">
+                      61 Filijala
+                    </span>
+                    <span className="text-xs font-bold text-brand-cyan bg-white/10 px-3 py-1 rounded-full">
+                      7 Regija
+                    </span>
                   </div>
 
                   {/* Interactive Vector Map with City Hub Circles */}
@@ -654,67 +656,67 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                         </div>
                         <div>
                           <div className="text-[10px] text-slate-300 uppercase font-bold">Skupština & Upravni Odbor</div>
-                          <div className="text-xs font-bold text-white">Direktor Društva & Odbor za Reviziju</div>
+                          <div className="text-[11px] font-semibold text-white/90">Direktor Društva & Odbor za Reviziju</div>
                         </div>
                       </div>
 
                       <div className="flex items-center gap-3 px-3 py-1.5 rounded-xl bg-brand-green/20 border border-brand-green/40">
-                        <img src="/assets/team/radmila-bjeljac.png" alt="Radmila" className="w-7 h-7 rounded-lg object-cover" />
+                        <img src="/assets/team/radmila-bjeljac.png" alt="Radmila" className="w-9 h-9 rounded-lg object-cover" />
                         <div>
                           <div className="text-[9px] text-brand-green uppercase font-black">Country Manager</div>
-                          <div className="text-xs font-bold text-white leading-none">Radmila Bjeljac</div>
+                          <div className="text-sm font-display font-black text-white leading-tight">Radmila Bjeljac</div>
                         </div>
                       </div>
                     </div>
 
                     {/* 8 Functional Sectors */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-left">
-                      <div className="p-2.5 rounded-xl bg-blue-500/15 border border-blue-400/30">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-left">
+                      <div className="p-3 rounded-xl bg-blue-500/15 border border-blue-400/30">
                         <span className="text-[9px] font-bold text-blue-300 uppercase">Prodaja (61 fil.)</span>
-                        <div className="text-xs font-bold text-white mt-0.5">Nenad Marjanović</div>
-                        <div className="text-[10px] text-slate-300">7 Regija · Savjetnici</div>
+                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Nenad Marjanović</div>
+                        <div className="text-[9px] text-slate-300 mt-0.5">7 Regija · Savjetnici</div>
                       </div>
 
-                      <div className="p-2.5 rounded-xl bg-cyan-500/15 border border-cyan-400/30">
+                      <div className="p-3 rounded-xl bg-cyan-500/15 border border-cyan-400/30">
                         <span className="text-[9px] font-bold text-cyan-300 uppercase">Operativna Podrška</span>
-                        <div className="text-xs font-bold text-white mt-0.5">Nataša Majstorović</div>
-                        <div className="text-[10px] text-slate-300">KC (40+) · Rizici · Naplata</div>
+                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Nataša Majstorović</div>
+                        <div className="text-[9px] text-slate-300 mt-0.5">KC (40+) · Rizici · Naplata</div>
                       </div>
 
-                      <div className="p-2.5 rounded-xl bg-purple-500/15 border border-purple-400/30">
+                      <div className="p-3 rounded-xl bg-purple-500/15 border border-purple-400/30">
                         <span className="text-[9px] font-bold text-purple-300 uppercase">Finansije & Admin</span>
-                        <div className="text-xs font-bold text-white mt-0.5">Nevena Ilić</div>
-                        <div className="text-[10px] text-slate-300">Planiranje · Računovodstvo</div>
+                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Nevena Ilić</div>
+                        <div className="text-[9px] text-slate-300 mt-0.5">Planiranje · Računovodstvo</div>
                       </div>
 
-                      <div className="p-2.5 rounded-xl bg-emerald-500/20 border border-brand-green/40">
+                      <div className="p-3 rounded-xl bg-emerald-500/20 border border-brand-green/40">
                         <span className="text-[9px] font-black text-brand-green uppercase">Ljudski Resursi (HR)</span>
-                        <div className="text-xs font-bold text-white mt-0.5">Sanja Knežević</div>
-                        <div className="text-[10px] text-slate-300">Regrutacija · Radni odnosi</div>
+                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Sanja Knežević</div>
+                        <div className="text-[9px] text-slate-300 mt-0.5">Regrutacija · Radni odnosi</div>
                       </div>
 
-                      <div className="p-2.5 rounded-xl bg-amber-500/15 border border-amber-400/30">
+                      <div className="p-3 rounded-xl bg-amber-500/15 border border-amber-400/30">
                         <span className="text-[9px] font-bold text-amber-300 uppercase">Marketing & PR</span>
-                        <div className="text-xs font-bold text-white mt-0.5">Mirna Đukić Švraka</div>
-                        <div className="text-[10px] text-slate-300">Digital · Brendovi</div>
+                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Mirna Đukić Švraka</div>
+                        <div className="text-[9px] text-slate-300 mt-0.5">Digital · Brendovi</div>
                       </div>
 
-                      <div className="p-2.5 rounded-xl bg-slate-500/20 border border-slate-400/30">
+                      <div className="p-3 rounded-xl bg-slate-500/20 border border-slate-400/30">
                         <span className="text-[9px] font-bold text-slate-300 uppercase">IT Podrška & IS</span>
-                        <div className="text-xs font-bold text-white mt-0.5">Aljoša Trninić</div>
-                        <div className="text-[10px] text-slate-300">Mreže · Admini</div>
+                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Aljoša Trninić</div>
+                        <div className="text-[9px] text-slate-300 mt-0.5">Mreže · Admini</div>
                       </div>
 
-                      <div className="p-2.5 rounded-xl bg-indigo-500/15 border border-indigo-400/30">
+                      <div className="p-3 rounded-xl bg-indigo-500/15 border border-indigo-400/30">
                         <span className="text-[9px] font-bold text-indigo-300 uppercase">Pravna Podrška</span>
-                        <div className="text-xs font-bold text-white mt-0.5">Andrea Mikić</div>
-                        <div className="text-[10px] text-slate-300">Usklađenost · Sudska naplata</div>
+                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Andrea Mikić</div>
+                        <div className="text-[9px] text-slate-300 mt-0.5">Usklađenost · Sudska naplata</div>
                       </div>
 
-                      <div className="p-2.5 rounded-xl bg-pink-500/15 border border-pink-400/30">
+                      <div className="p-3 rounded-xl bg-pink-500/15 border border-pink-400/30">
                         <span className="text-[9px] font-bold text-pink-300 uppercase">Osiguranje</span>
-                        <div className="text-xs font-bold text-white mt-0.5">Miloš Runić</div>
-                        <div className="text-[10px] text-slate-300">Zastupanje u osiguranju</div>
+                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Miloš Runić</div>
+                        <div className="text-[9px] text-slate-300 mt-0.5">Zastupanje u osiguranju</div>
                       </div>
                     </div>
                   </div>
@@ -742,82 +744,82 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                   </div>
 
                   {/* Highlights Grid of Key Departments & Contacts */}
-                  <div className="my-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 text-left">
+                  <div className="my-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 text-left">
                     {/* HR Team Highlight */}
-                    <div className="p-3 rounded-2xl bg-emerald-500/15 border border-brand-green/40 shadow-lg flex items-center gap-3">
-                      <img src="/assets/team/aleksandra-antesevic.png" alt="Aleksandra" className="w-10 h-10 rounded-xl object-cover border border-brand-green" />
+                    <div className="p-3.5 rounded-2xl bg-emerald-500/15 border border-brand-green/40 shadow-lg flex items-center gap-3.5">
+                      <img src="/assets/team/aleksandra-antesevic.png" alt="Aleksandra" className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover border border-brand-green flex-shrink-0" />
                       <div className="min-w-0">
                         <span className="text-[9px] font-black text-brand-green uppercase">Ljudski Resursi</span>
-                        <h4 className="text-xs font-bold text-white truncate">Aleksandra Antešević</h4>
-                        <p className="text-[10px] text-slate-300 truncate">HR & Radni odnosi</p>
+                        <h4 className="text-sm sm:text-base font-display font-black text-white leading-tight">Aleksandra Antešević</h4>
+                        <p className="text-[10px] text-slate-300 truncate mt-0.5">HR & Radni odnosi</p>
                       </div>
                     </div>
 
                     {/* HR Management Highlight */}
-                    <div className="p-3 rounded-2xl bg-white/10 border border-brand-cyan/40 flex items-center gap-3">
-                      <img src="/assets/team/sanja-knezevic.png" alt="Sanja" className="w-10 h-10 rounded-xl object-cover border border-brand-cyan" />
+                    <div className="p-3.5 rounded-2xl bg-white/10 border border-brand-cyan/40 flex items-center gap-3.5">
+                      <img src="/assets/team/sanja-knezevic.png" alt="Sanja" className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover border border-brand-cyan flex-shrink-0" />
                       <div className="min-w-0">
                         <span className="text-[9px] font-black text-brand-cyan uppercase">Ljudski Resursi</span>
-                        <h4 className="text-xs font-bold text-white truncate">Sanja Knežević</h4>
-                        <p className="text-[10px] text-slate-300 truncate">Regionalni HR menadžer</p>
+                        <h4 className="text-sm sm:text-base font-display font-black text-white leading-tight">Sanja Knežević</h4>
+                        <p className="text-[10px] text-slate-300 truncate mt-0.5">Regionalni HR menadžer</p>
                       </div>
                     </div>
 
                     {/* IT Lead */}
-                    <div className="p-3 rounded-2xl bg-white/10 border border-white/15 flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-slate-700 text-white flex items-center justify-center font-bold text-xs">IT</div>
+                    <div className="p-3.5 rounded-2xl bg-white/10 border border-white/15 flex items-center gap-3.5">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-slate-700 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">IT</div>
                       <div className="min-w-0">
                         <span className="text-[9px] font-bold text-slate-300 uppercase">IT Podrška</span>
-                        <h4 className="text-xs font-bold text-white truncate">Aljoša Trninić</h4>
-                        <p className="text-[10px] text-slate-300 truncate">IT & Sigurnost IS</p>
+                        <h4 className="text-sm sm:text-base font-display font-black text-white leading-tight">Aljoša Trninić</h4>
+                        <p className="text-[10px] text-slate-300 truncate mt-0.5">IT & Sigurnost IS</p>
                       </div>
                     </div>
 
                     {/* Marketing Lead */}
-                    <div className="p-3 rounded-2xl bg-white/10 border border-white/15 flex items-center gap-3">
-                      <img src="/assets/team/mirna-djukic-svraka.png" alt="Mirna" className="w-10 h-10 rounded-xl object-cover border border-amber-400" />
+                    <div className="p-3.5 rounded-2xl bg-white/10 border border-white/15 flex items-center gap-3.5">
+                      <img src="/assets/team/mirna-djukic-svraka.png" alt="Mirna" className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover border border-amber-400 flex-shrink-0" />
                       <div className="min-w-0">
                         <span className="text-[9px] font-bold text-amber-300 uppercase">Marketing</span>
-                        <h4 className="text-xs font-bold text-white truncate">Mirna Đukić Švraka</h4>
-                        <p className="text-[10px] text-slate-300 truncate">Regionalni direktor</p>
+                        <h4 className="text-sm sm:text-base font-display font-black text-white leading-tight">Mirna Đukić Švraka</h4>
+                        <p className="text-[10px] text-slate-300 truncate mt-0.5">Regionalni direktor</p>
                       </div>
                     </div>
 
                     {/* Sales Lead */}
-                    <div className="p-3 rounded-2xl bg-white/10 border border-white/15 flex items-center gap-3">
-                      <img src="/assets/team/nenad-marjanovic.jpg" alt="Nenad" className="w-10 h-10 rounded-xl object-cover border border-blue-400" />
+                    <div className="p-3.5 rounded-2xl bg-white/10 border border-white/15 flex items-center gap-3.5">
+                      <img src="/assets/team/nenad-marjanovic.jpg" alt="Nenad" className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover border border-blue-400 flex-shrink-0" />
                       <div className="min-w-0">
                         <span className="text-[9px] font-bold text-blue-300 uppercase">Prodaja</span>
-                        <h4 className="text-xs font-bold text-white truncate">Nenad Marjanović</h4>
-                        <p className="text-[10px] text-slate-300 truncate">Menadžer prodaje</p>
+                        <h4 className="text-sm sm:text-base font-display font-black text-white leading-tight">Nenad Marjanović</h4>
+                        <p className="text-[10px] text-slate-300 truncate mt-0.5">Menadžer prodaje</p>
                       </div>
                     </div>
 
                     {/* Operations Lead */}
-                    <div className="p-3 rounded-2xl bg-white/10 border border-white/15 flex items-center gap-3">
-                      <img src="/assets/team/natasa-majstorovic.png" alt="Nataša" className="w-10 h-10 rounded-xl object-cover border border-cyan-400" />
+                    <div className="p-3.5 rounded-2xl bg-white/10 border border-white/15 flex items-center gap-3.5">
+                      <img src="/assets/team/natasa-majstorovic.png" alt="Nataša" className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover border border-cyan-400 flex-shrink-0" />
                       <div className="min-w-0">
                         <span className="text-[9px] font-bold text-cyan-300 uppercase">Operativa</span>
-                        <h4 className="text-xs font-bold text-white truncate">Nataša Majstorović</h4>
-                        <p className="text-[10px] text-slate-300 truncate">Operativni direktor</p>
+                        <h4 className="text-sm sm:text-base font-display font-black text-white leading-tight">Nataša Majstorović</h4>
+                        <p className="text-[10px] text-slate-300 truncate mt-0.5">Operativni direktor</p>
                       </div>
                     </div>
 
                     {/* Finance Lead */}
-                    <div className="p-3 rounded-2xl bg-white/10 border border-white/15 flex items-center gap-3">
-                      <img src="/assets/team/nevena-ilic.png" alt="Nevena" className="w-10 h-10 rounded-xl object-cover border border-purple-400" />
+                    <div className="p-3.5 rounded-2xl bg-white/10 border border-white/15 flex items-center gap-3.5">
+                      <img src="/assets/team/nevena-ilic.png" alt="Nevena" className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover border border-purple-400 flex-shrink-0" />
                       <div className="min-w-0">
                         <span className="text-[9px] font-bold text-purple-300 uppercase">Finansije</span>
-                        <h4 className="text-xs font-bold text-white truncate">Nevena Ilić</h4>
-                        <p className="text-[10px] text-slate-300 truncate">Direktor finansija</p>
+                        <h4 className="text-sm sm:text-base font-display font-black text-white leading-tight">Nevena Ilić</h4>
+                        <p className="text-[10px] text-slate-300 truncate mt-0.5">Direktor finansija</p>
                       </div>
                     </div>
 
                     {/* Full Directory Card */}
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
+                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
                       <div>
-                        <div className="text-xs font-bold text-white">I još 40+ kolega</div>
-                        <div className="text-[10px] text-slate-400">Svi sektori i podrška</div>
+                        <div className="text-sm font-display font-black text-white">I još 40+ kolega</div>
+                        <div className="text-[10px] text-slate-400 mt-0.5">Svi sektori i podrška</div>
                       </div>
                       <span className="text-brand-green font-bold text-sm">✓</span>
                     </div>
@@ -861,23 +863,23 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
 
                   {/* Selected Leader Spotlight */}
                   {managementTeam[activeMgmtIndex] && (
-                    <div className="my-auto p-5 rounded-2xl bg-white/10 border border-white/15 flex flex-col sm:flex-row items-center gap-6 animate-fade-in">
+                    <div className="my-auto p-5 rounded-2xl bg-white/10 border border-white/15 flex flex-col sm:flex-row items-center gap-6 sm:gap-8 animate-fade-in">
                       <img
                         src={managementTeam[activeMgmtIndex].photo}
                         alt={managementTeam[activeMgmtIndex].name}
-                        className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl object-cover border-2 border-brand-green shadow-xl flex-shrink-0"
+                        className="h-48 sm:h-[62vh] lg:h-[68vh] w-auto max-w-full sm:max-w-[42%] rounded-2xl object-cover object-top border-2 border-brand-green shadow-xl flex-shrink-0"
                       />
-                      <div className="space-y-2 text-left">
+                      <div className="space-y-2.5 text-left">
                         <div className="inline-block px-2.5 py-0.5 rounded-full bg-brand-cyan/20 text-brand-cyan text-[10px] font-bold uppercase">
                           {managementTeam[activeMgmtIndex].department}
                         </div>
-                        <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
+                        <h3 className="text-2xl sm:text-3xl font-display font-black text-white">
                           {managementTeam[activeMgmtIndex].name}
                         </h3>
-                        <p className="text-xs sm:text-sm font-semibold text-brand-green">
+                        <p className="text-sm sm:text-base font-semibold text-brand-green">
                           {managementTeam[activeMgmtIndex].role}
                         </p>
-                        <p className="text-xs text-slate-200 leading-relaxed line-clamp-4">
+                        <p className="text-xs sm:text-sm text-slate-200 leading-relaxed line-clamp-6">
                           {managementTeam[activeMgmtIndex].bio}
                         </p>
                       </div>

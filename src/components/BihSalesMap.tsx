@@ -135,10 +135,10 @@ export const BihSalesMap: React.FC = () => {
     <div className="w-full h-full flex flex-col md:flex-row items-center gap-3 sm:gap-6 justify-between min-h-0">
       
       {/* Left / Center: Interactive SVG Map of BiH */}
-      <div className="relative flex-1 w-full flex items-center justify-center max-h-[280px] sm:max-h-[320px] min-h-0">
+      <div className="relative flex-1 w-full flex items-center justify-center max-h-[340px] sm:max-h-[420px] lg:max-h-[480px] min-h-0">
         <svg
           viewBox="0 0 680 570"
-          className="w-full h-full max-h-[280px] sm:max-h-[320px] drop-shadow-2xl select-none"
+          className="w-full h-full max-h-[340px] sm:max-h-[420px] lg:max-h-[480px] drop-shadow-2xl select-none"
         >
           <defs>
             {/* Map gradient fill */}
@@ -315,7 +315,7 @@ export const BihSalesMap: React.FC = () => {
       </div>
 
       {/* Right Side: Selected Region Spotlight & Stats */}
-      <div className="w-full md:w-72 bg-white/10 backdrop-blur-md rounded-2xl border border-white/15 p-3.5 sm:p-4 flex flex-col justify-between flex-shrink-0 animate-fade-in">
+      <div className="w-full md:w-72 lg:w-80 bg-white/10 backdrop-blur-md rounded-2xl border border-white/15 p-3.5 sm:p-4 flex flex-col justify-between flex-shrink-0 animate-fade-in">
         
         {/* Hub Header */}
         <div>
