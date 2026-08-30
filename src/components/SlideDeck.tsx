@@ -12,6 +12,24 @@ import {
 } from '../data/onboardingData';
 import { playSound } from '../utils/audio';
 import { BihSalesMap } from './BihSalesMap';
+import { OrgChartOrbit } from './OrgChartOrbit';
+
+const goalIcons: Record<string, string> = {
+  geo: '/assets/illustrations/goal-geographic-expansion.jpg',
+  channels: '/assets/illustrations/goal-sales-channels.png',
+  products: '/assets/illustrations/goal-product-development.jpg',
+  marketing: '/assets/illustrations/goal-marketing-support.png',
+  optimization: '/assets/illustrations/goal-process-optimization.jpg',
+  performance: '/assets/illustrations/goal-performance-management.jpg',
+};
+
+const benefitIcons: string[] = [
+  '/assets/illustrations/benefit-professional-growth.png',
+  '/assets/illustrations/benefit-colleague-support.png',
+  '/assets/illustrations/benefit-career-advancement.png',
+  '/assets/illustrations/benefit-team-celebrations.png',
+  '/assets/illustrations/benefit-recognition-reward.png',
+];
 
 interface SlideDeckProps {
   soundEnabled: boolean;
@@ -615,13 +633,17 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                   </div>
 
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 my-auto">
-                    {strategicGoals.map((goal, idx) => (
+                    {strategicGoals.map((goal) => (
                       <div
                         key={goal.id}
-                        className="p-3 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 text-center flex flex-col justify-between"
+                        className="p-3 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 text-center flex flex-col items-center justify-between"
                       >
-                        <span className="text-brand-green font-black text-lg">0{idx + 1}</span>
-                        <h4 className="font-display font-bold text-xs text-white my-1">{goal.title}</h4>
+                        <img
+                          src={goalIcons[goal.id]}
+                          alt={goal.title}
+                          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-brand-green/50 shadow-md"
+                        />
+                        <h4 className="font-display font-bold text-xs text-white my-1.5">{goal.title}</h4>
                         <p className="text-[10px] text-slate-300 leading-snug">{goal.description}</p>
                       </div>
                     ))}
@@ -646,79 +668,9 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                     </span>
                   </div>
 
-                  {/* High Quality Digital Org Hierarchy Grid */}
-                  <div className="my-auto space-y-2.5">
-                    {/* Top Tier: Governance & Country Manager */}
-                    <div className="p-3 rounded-2xl bg-white/10 border border-white/15 flex flex-wrap items-center justify-between gap-3">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-xl bg-brand-green/20 text-brand-green flex items-center justify-center font-bold text-xs">
-                          <ShieldCheck className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="text-[10px] text-slate-300 uppercase font-bold">Skupština & Upravni Odbor</div>
-                          <div className="text-[11px] font-semibold text-white/90">Direktor Društva & Odbor za Reviziju</div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3 px-3 py-1.5 rounded-xl bg-brand-green/20 border border-brand-green/40">
-                        <img src="/assets/team/radmila-bjeljac.png" alt="Radmila" className="w-9 h-9 rounded-lg object-cover" />
-                        <div>
-                          <div className="text-[9px] text-brand-green uppercase font-black">Country Manager</div>
-                          <div className="text-sm font-display font-black text-white leading-tight">Radmila Bjeljac</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 8 Functional Sectors */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-left">
-                      <div className="p-3 rounded-xl bg-blue-500/15 border border-blue-400/30">
-                        <span className="text-[9px] font-bold text-blue-300 uppercase">Prodaja (61 fil.)</span>
-                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Nenad Marjanović</div>
-                        <div className="text-[9px] text-slate-300 mt-0.5">7 Regija · Savjetnici</div>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-cyan-500/15 border border-cyan-400/30">
-                        <span className="text-[9px] font-bold text-cyan-300 uppercase">Operativna Podrška</span>
-                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Nataša Majstorović</div>
-                        <div className="text-[9px] text-slate-300 mt-0.5">KC (40+) · Rizici · Naplata</div>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-purple-500/15 border border-purple-400/30">
-                        <span className="text-[9px] font-bold text-purple-300 uppercase">Finansije & Admin</span>
-                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Nevena Ilić</div>
-                        <div className="text-[9px] text-slate-300 mt-0.5">Planiranje · Računovodstvo</div>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-emerald-500/20 border border-brand-green/40">
-                        <span className="text-[9px] font-black text-brand-green uppercase">Ljudski Resursi (HR)</span>
-                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Sanja Knežević</div>
-                        <div className="text-[9px] text-slate-300 mt-0.5">Regrutacija · Radni odnosi</div>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-amber-500/15 border border-amber-400/30">
-                        <span className="text-[9px] font-bold text-amber-300 uppercase">Marketing & PR</span>
-                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Mirna Đukić Švraka</div>
-                        <div className="text-[9px] text-slate-300 mt-0.5">Digital · Brendovi</div>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-slate-500/20 border border-slate-400/30">
-                        <span className="text-[9px] font-bold text-slate-300 uppercase">IT Podrška & IS</span>
-                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Aljoša Trninić</div>
-                        <div className="text-[9px] text-slate-300 mt-0.5">Mreže · Admini</div>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-indigo-500/15 border border-indigo-400/30">
-                        <span className="text-[9px] font-bold text-indigo-300 uppercase">Pravna Podrška</span>
-                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Andrea Mikić</div>
-                        <div className="text-[9px] text-slate-300 mt-0.5">Usklađenost · Sudska naplata</div>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-pink-500/15 border border-pink-400/30">
-                        <span className="text-[9px] font-bold text-pink-300 uppercase">Osiguranje</span>
-                        <div className="text-sm sm:text-base font-display font-black text-white mt-1 leading-tight">Miloš Runić</div>
-                        <div className="text-[9px] text-slate-300 mt-0.5">Zastupanje u osiguranju</div>
-                      </div>
-                    </div>
+                  {/* Animated single-page orbit diagram: Country Manager hub + 8 sectors */}
+                  <div className="my-auto flex-1 min-h-0">
+                    <OrgChartOrbit />
                   </div>
 
                   <div className="text-xs text-slate-300 flex items-center justify-between border-t border-white/10 pt-2">
@@ -999,9 +951,13 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                     {employeeBenefits.map((b, idx) => (
                       <div
                         key={idx}
-                        className="p-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 flex flex-col justify-between transition-all hover:-translate-y-1 hover:border-brand-green/50"
+                        className="p-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 flex flex-col items-center text-center justify-between transition-all hover:-translate-y-1 hover:border-brand-green/50"
                       >
-                        <span className="text-brand-green font-black text-sm">0{idx + 1}</span>
+                        <img
+                          src={benefitIcons[idx]}
+                          alt={b.title}
+                          className="h-14 sm:h-16 w-auto object-contain drop-shadow-glow-cyan"
+                        />
                         <h4 className="font-display font-bold text-sm text-white my-2">{b.title}</h4>
                         <p className="text-[11px] text-slate-300 leading-relaxed">{b.desc}</p>
                       </div>
