@@ -1,29 +1,11 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { SlideDeck } from './components/SlideDeck';
-import { PortalView } from './components/PortalView';
-import { PersonalizationModal } from './components/PersonalizationModal';
 import { defaultProfile } from './data/onboardingData';
-import { EmployeeProfile } from './types';
-import { playSound } from './utils/audio';
-import { LayoutDashboard, Presentation, Sparkles, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 export const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'portal' | 'presentation'>('portal');
-  const [profile, setProfile] = useState<EmployeeProfile>(defaultProfile);
-  const [isCustomizerOpen, setIsCustomizerOpen] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
-
-  const handleViewChange = (view: 'portal' | 'presentation') => {
-    setCurrentView(view);
-    playSound('slide', soundEnabled);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleSaveProfile = (updated: EmployeeProfile) => {
-    setProfile(updated);
-    playSound('success', soundEnabled);
-  };
 
   const handlePrint = () => {
     window.print();
@@ -34,35 +16,21 @@ export const App: React.FC = () => {
       
       {/* Navigation */}
       <Navbar
-        currentView={currentView}
-        onViewChange={handleViewChange}
-        profile={profile}
-        onOpenCustomizer={() => setIsCustomizerOpen(true)}
         soundEnabled={soundEnabled}
         onToggleSound={() => setSoundEnabled(prev => !prev)}
         onPrint={handlePrint}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 w-full">
-        {currentView === 'presentation' ? (
-          <SlideDeck
-            profile={profile}
-            soundEnabled={soundEnabled}
-            onOpenCustomizer={() => setIsCustomizerOpen(true)}
-          />
-        ) : (
-          <PortalView
-            profile={profile}
-            onStartPresentation={() => handleViewChange('presentation')}
-            onOpenCustomizer={() => setIsCustomizerOpen(true)}
-            soundEnabled={soundEnabled}
-          />
-        )}
+      {/* Main Content Area — Pure Presentation */}
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 w-full flex flex-col justify-center">
+        <SlideDeck
+          profile={defaultProfile}
+          soundEnabled={soundEnabled}
+        />
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#002434] text-slate-400 text-xs py-10 border-t border-cyan-500/20 no-print mt-16">
+      <footer className="bg-[#002434] text-slate-400 text-xs py-8 border-t border-cyan-500/20 no-print mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <img 
@@ -85,7 +53,7 @@ export const App: React.FC = () => {
             <span>•</span>
             <span>230 zaposlenih</span>
             <span>•</span>
-            <span>Onboarding Platforma 2026</span>
+            <span>Onboarding Prezentacija 2026</span>
           </div>
 
           <div className="text-slate-500 text-[11px] flex items-center gap-1">
@@ -95,14 +63,7 @@ export const App: React.FC = () => {
         </div>
       </footer>
 
-      {/* HR Personalization Modal */}
-      <PersonalizationModal
-        isOpen={isCustomizerOpen}
-        onClose={() => setIsCustomizerOpen(false)}
-        profile={profile}
-        onSaveProfile={handleSaveProfile}
-      />
-
     </div>
   );
 };
+

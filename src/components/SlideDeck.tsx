@@ -3,7 +3,7 @@ import {
   ChevronLeft, ChevronRight, Maximize2, Minimize2, Grid, Sparkles, 
   Layers, Volume2, HelpCircle, ArrowRight, UserCheck, Trophy, Store,
   Building2, Users, Target, ShieldCheck, HeartHandshake, Eye, CheckCircle2,
-  Calendar, MapPin, Compass, Briefcase, Award, TrendingUp, Lightbulb, Image as ImageIcon
+  Calendar, MapPin, Compass, Briefcase, Award, TrendingUp, Lightbulb, Download, Image as ImageIcon
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { EmployeeProfile } from '../types';
@@ -17,13 +17,11 @@ import { playSound } from '../utils/audio';
 interface SlideDeckProps {
   profile: EmployeeProfile;
   soundEnabled: boolean;
-  onOpenCustomizer: () => void;
 }
 
 export const SlideDeck: React.FC<SlideDeckProps> = ({
   profile,
   soundEnabled,
-  onOpenCustomizer,
 }) => {
   const [currentSlide, setCurrentSlide] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -225,11 +223,11 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                     </div>
 
                     <button
-                      onClick={onOpenCustomizer}
-                      className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs text-brand-green font-bold flex items-center gap-2 transition-all"
+                      onClick={goToNext}
+                      className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-green to-emerald-500 hover:brightness-110 text-[#002B3D] text-xs font-black shadow-lg hover:shadow-glow-green transition-all flex items-center gap-2"
                     >
-                      <UserCheck className="w-4 h-4" />
-                      Prilagodi podatke zaposlenog
+                      <span>Započni prezentaciju</span>
+                      <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -658,7 +656,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                   </div>
 
                   <div className="text-xs text-slate-300 flex items-center justify-between border-t border-white/10 pt-2">
-                    <span>Kompletan dijagram dostupan je na <strong>Portalu za zaposlene</strong></span>
+                    <span>Organizaciona struktura i hijerarhija kompanije</span>
                     <span className="text-brand-green font-bold">Jasna struktura i odgovornost</span>
                   </div>
                 </div>
@@ -751,18 +749,18 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                       </div>
                     </div>
 
-                    {/* Full Directory CTA */}
+                    {/* Full Directory Card */}
                     <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
                       <div>
                         <div className="text-xs font-bold text-white">I još 40+ kolega</div>
-                        <div className="text-[10px] text-slate-400">Pretraživi katalog na Portalu</div>
+                        <div className="text-[10px] text-slate-400">Svi sektori i podrška</div>
                       </div>
-                      <span className="text-brand-green font-bold text-sm">→</span>
+                      <span className="text-brand-green font-bold text-sm">✓</span>
                     </div>
                   </div>
 
                   <div className="text-xs text-slate-300 flex items-center justify-between border-t border-white/10 pt-2">
-                    <span>Kompletna pretraživa baza sa svim kontaktima nalazi se na <strong>Portalu</strong></span>
+                    <span>Povezan i snažan tim u svim sektorima kompanije</span>
                     <span className="text-brand-green font-bold">230 zaposlenih</span>
                   </div>
                 </div>
@@ -1030,12 +1028,14 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                     >
                       Pogledaj od početka
                     </button>
-                    <button
-                      onClick={onOpenCustomizer}
-                      className="px-6 py-2.5 rounded-xl bg-brand-green hover:bg-brand-green-light text-[#002B3D] text-xs font-bold shadow-lg hover:shadow-glow-green transition-all"
+                    <a
+                      href="/FlexCredit-Dobrodoslica.pdf"
+                      download="FlexCredit-Dobrodoslica.pdf"
+                      className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-brand-green to-emerald-500 hover:brightness-110 text-[#002B3D] text-xs font-black shadow-lg hover:shadow-glow-green transition-all inline-flex items-center gap-2"
                     >
-                      Prilagodi novog zaposlenog
-                    </button>
+                      <Download className="w-4 h-4" />
+                      Preuzmi PDF prezentaciju
+                    </a>
                   </div>
                 </div>
               )}
