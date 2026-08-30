@@ -7,28 +7,18 @@ Interaktivna web platforma za digitalizaciju onboarding procesa i prezentacije d
 ## 🌟 Ključne Funkcionalnosti
 
 1. **Digitalna Interaktivna Prezentacija (18 slajdova)**:
-   - Fullscreen prezentacioni mod prilagođen 16:9 formatu
+   - Direktno otvaranje u full-screen 16:9 prezentacioni mod bez spoljnih headera/footera
    - Tastaturne prečice (`←` / `→` / `Space` za listanje, `F` za full-screen, `G` za rešetku slajdova)
-   - Prebacivanje jednim klikom između modernog digitalnog dizajna i skena originalnih slajdova
-   - Zvučni sintetički efekti (Web Audio API) i slavljeničke konfete
+   - Velike plutajuće navigacione strelice na desktopu i optimizovani touch swipe na mobilnim uređajima
+   - Sintetički zvučni efekti (Web Audio API) i slavljeničke konfete na finalnom slajdu
 
-2. **Onboarding Portal Hub**:
-   - **Hero dobrodošlica** sa dinamičkim vokativom i gramatičkim rodom (`Dobro nam došao/došla`)
-   - **7 koraka integracije**: Od upoznavanja do samostalnog rada
-   - **Ključne metrike**: 61 filijala u RS, 67 Pošta RS lokacija, 40+ operatera, 20.000+ klijenata, 199.000 isplaćenih kredita, 230 zaposlenih, 2 brenda (*Flex Credit* i *Uzmi novac*)
-   - **Interaktivna prodajna mapa BiH**: 7 prodajnih regija sa regionalnim menadžerima i gradovima
-   - **Strateški ciljevi za 2026.**: 6 strateških stubova
-   - **Menadžment spotlight**: Biografije i fotografije direktora (Radmila Bjeljac, Nenad Marjanović, Nataša Majstorović, Nevena Ilić, Mirna Đukić Švraka)
-   - **Interaktivna organizaciona struktura**: Hijerarhijsko stablo sa sektorima
-   - **Katalog kolega**: 47 ključnih saradnika sa pretragom i filtriranjem po odjelima
-   - **Mentorska stanica**: Personalizovana podrška mentora i definicija uloge
-   - **Interaktivna kontrolna lista (Checklist)**: Praćenje napretka od 1. dana do 3. mjeseca
-   - **Kviz znanja & Digitalni Onboarding Certifikat**: Interaktivni test sa bodovanjem i generisanjem certifikata za štampu/PDF
+2. **Vektorska Prodajna Mreža BiH (Slajd 9)**:
+   - Interaktivna SVG mapa Bosne i Hercegovine u tamnoj temi
+   - Proporcionalni krugovi sa brojem filijala unutar svakog kruga za 7 regionalnih centara (Banja Luka 14, Bijeljina 10, Doboj 9, Brčko 8, Istočno Sarajevo 8, Prijedor 7, Trebinje 5)
+   - Mrežne linije povezanosti i interaktivni pregled gradova/menadžera na klik
 
-3. **Live HR Generator & Personalizacija**:
-   - Modalni prozor za trenutno prilagođavanje imena, gramatičkog roda, pozicije, mentora, rukovodioca i lokacije
-   - Gotovi šabloni (*Svetozar Mišić*, *Amar Hadžić*, *Slađana Mašić*, *Nikola Jovanović*)
-   - Automatsko usklađivanje svih padeža i glagolskih oblika na cijelom sajtu
+3. **Preuzimanje Prezentacije u PDF Formatu**:
+   - Direktno dugme u gornjoj traci i na završnom slajdu za preuzimanje visoke rezolucije (`FlexCredit-Dobrodoslica.pdf`)
 
 ---
 

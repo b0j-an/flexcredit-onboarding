@@ -8,24 +8,12 @@ Ovaj repozitorijum sadrži digitalizovanu, modernizovanu interaktivnu platformu 
 
 - `src/` — React 18 + TypeScript + Tailwind CSS izvorni kod
   - `components/` — Modularne komponente:
-    - `Navbar.tsx` — Navigaciona traka sa promjenom pogleda, podešavanjima i personalizacijom
-    - `SlideDeck.tsx` — Digitalna 16:9 prezentacija od 18 slajdova sa tastaturnom navigacijom i toggle-om za originalni sken
-    - `PortalView.tsx` — Sveobuhvatni interaktivni portal za novog zaposlenog
-    - `ColleaguesDirectory.tsx` — Pretraživa baza svih 47 saradnika sa fotografijama i sektorima
-    - `SalesMapInteractive.tsx` — Interaktivna prodajna mapa BiH sa 7 regija i 61 filijalom
-    - `OrgChartInteractive.tsx` — Interaktivno stablo organizacione strukture i originalni dijagram
-    - `KnowledgeQuiz.tsx` — Kviz znanja sa slavljeničkim konfetama i generisanjem certifikata
-    - `OnboardingChecklist.tsx` — Interaktivna kontrolna lista integracije (Dan 1 do Mjesec 3)
-    - `PersonalizationModal.tsx` — HR alat za podešavanje novog zaposlenog u realnom vremenu
-  - `data/onboardingData.ts` — Podaci o kompaniji, 47 kolega, menadžmentu, regijama, ciljevima za 2026. i kvizu
-  - `utils/` — Gramatička prilagođavanja roda (vokativ, glagolski oblici) i Web Audio efekti
-- `public/assets/` — Ekstraktovani i optimizovani vizuelni resursi:
-  - `team/` — Fotografije menadžmenta (Radmila Bjeljac, Nenad Marjanović, Nataša Majstorović, Nevena Ilić, Mirna Đukić Švraka, Aleksandra Antešević, Sanja Knežević)
-  - `branding/` — Zvanični logotipi (FlexCredit, MVF Finance, simboli)
-  - `office/` — Novo sjedište i grupna fotografija 230 zaposlenih
-  - `illustrations/` — Vektorske i grafičke ilustracije iz prezentacije
-  - `slides/` — Skener svih 18 originalnih slajdova u punoj rezoluciji
-- `Dobrodošlica Svetozar Mišić.pptx` — Originalna PowerPoint prezentacija
+    - `SlideDeck.tsx` — Digitalna 16:9 prezentacija od 18 slajdova sa tastaturnom navigacijom, plutajućim strelicama i integrisanim PDF downloadom
+    - `BihSalesMap.tsx` — Vektorska interaktivna prodajna mapa BiH sa 7 regija i proporcionalnim krugovima filijala
+  - `data/onboardingData.ts` — Podaci o kompaniji, sektorima, menadžmentu, 7 regija i strateškim ciljevima za 2026.
+  - `utils/` — Web Audio zvučni efekti i pomoćne funkcije
+- `public/` — Statički resursi i `FlexCredit-Dobrodoslica.pdf` (visoka rezolucija)
+  - `assets/` — Ekstraktovani i optimizovani vizuelni resursi (branding, team, illustrations)
 - `README.md` — Uputstvo za pokretanje i tehnički pregled
 
 ---

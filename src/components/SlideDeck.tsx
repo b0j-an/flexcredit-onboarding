@@ -26,6 +26,8 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showGrid, setShowGrid] = useState(false);
   const [activeMgmtIndex, setActiveMgmtIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   const totalSlides = 18;
 
@@ -42,6 +44,27 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
       playSound('slide', soundEnabled);
     }
   }, [currentSlide, soundEnabled]);
+
+  // Touch swipe support for mobile
+  const minSwipeDistance = 50;
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    if (isLeftSwipe) goToNext();
+    if (isRightSwipe) goToPrev();
+  };
 
   // Keyboard navigation
   useEffect(() => {
@@ -136,12 +159,36 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Mobile Navigation Arrows */}
+          <div className="flex md:hidden items-center gap-1 border-r border-white/10 pr-1.5">
+            <button
+              onClick={goToPrev}
+              disabled={currentSlide === 1}
+              className={`p-1.5 rounded-lg text-xs transition-colors ${
+                currentSlide === 1 ? 'opacity-30 text-slate-500' : 'bg-white/10 text-white active:bg-white/20'
+              }`}
+              title="Prethodni slajd"
+            >
+              <ChevronLeft className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={goToNext}
+              disabled={currentSlide === totalSlides}
+              className={`p-1.5 rounded-lg text-xs transition-colors ${
+                currentSlide === totalSlides ? 'opacity-30 text-slate-500' : 'bg-brand-green text-[#002B3D] font-bold active:brightness-110'
+              }`}
+              title="Sljedeći slajd"
+            >
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
           {/* Download PDF Button */}
           <a
             href="/FlexCredit-Dobrodoslica.pdf"
             download="FlexCredit-Dobrodoslica.pdf"
-            className="px-3 py-1 rounded-lg bg-gradient-to-r from-brand-green to-emerald-500 hover:brightness-110 text-[#002B3D] text-xs font-black flex items-center gap-1.5 shadow-sm transition-all"
+            className="px-2.5 sm:px-3 py-1 rounded-lg bg-gradient-to-r from-brand-green to-emerald-500 hover:brightness-110 text-[#002B3D] text-xs font-black flex items-center gap-1.5 shadow-sm transition-all"
             title="Preuzmi prezentaciju kao PDF"
           >
             <Download className="w-3.5 h-3.5 text-[#002B3D]" />
@@ -186,24 +233,29 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
       </div>
 
       {/* Slide Content Area with Floating Navigation Arrows */}
-      <div className="flex-1 relative overflow-hidden flex items-center justify-center p-3 sm:p-6 text-white w-full max-w-7xl mx-auto min-h-0">
+      <div 
+        className="flex-1 relative overflow-hidden flex items-center justify-center p-2 sm:p-6 text-white w-full max-w-7xl mx-auto min-h-0"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         
-        {/* Large Floating Left Navigation Arrow */}
+        {/* Large Floating Left Navigation Arrow (Desktop/Tablet) */}
         {currentSlide > 1 && (
           <button
             onClick={goToPrev}
-            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3.5 rounded-2xl bg-[#001D2B]/85 hover:bg-brand-cyan text-slate-300 hover:text-[#002B3D] border border-white/15 backdrop-blur-md shadow-2xl transition-all duration-200 hover:scale-110 group"
+            className="hidden md:flex absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 p-3 sm:p-4 rounded-2xl bg-[#001D2B]/90 hover:bg-brand-cyan text-slate-300 hover:text-[#002B3D] border border-white/15 backdrop-blur-md shadow-2xl transition-all duration-200 hover:scale-110 group items-center justify-center"
             title="Prethodni slajd (←)"
           >
             <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 group-hover:-translate-x-0.5 transition-transform" />
           </button>
         )}
 
-        {/* Large Floating Right Navigation Arrow */}
+        {/* Large Floating Right Navigation Arrow (Desktop/Tablet) */}
         {currentSlide < totalSlides && (
           <button
             onClick={goToNext}
-            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3.5 rounded-2xl bg-brand-green/90 hover:bg-brand-green text-[#002B3D] border border-brand-green/40 backdrop-blur-md shadow-glow-green transition-all duration-200 hover:scale-110 group"
+            className="hidden md:flex absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 p-3 sm:p-4 rounded-2xl bg-brand-green hover:bg-brand-green text-[#002B3D] border border-brand-green/40 backdrop-blur-md shadow-glow-green transition-all duration-200 hover:scale-110 group items-center justify-center"
             title="Sljedeći slajd (→ ili Space)"
           >
             <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 group-hover:translate-x-0.5 transition-transform" />
@@ -211,7 +263,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
         )}
 
         {/* Slide Stage */}
-        <div className="w-full h-full flex flex-col justify-center animate-fade-in relative z-10 px-6 sm:px-12 min-h-0 overflow-hidden">
+        <div className="w-full h-full flex flex-col justify-center animate-fade-in relative z-10 px-3 sm:px-12 md:px-16 min-h-0 overflow-hidden">
               
               {/* SLIDE 1: Welcome Hero */}
               {currentSlide === 1 && (
@@ -568,7 +620,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                       >
                         <span className="text-brand-green font-black text-lg">0{idx + 1}</span>
                         <h4 className="font-display font-bold text-xs text-white my-1">{goal.title}</h4>
-                        <p className="text-[10px] text-slate-300 line-clamp-3">{goal.description}</p>
+                        <p className="text-[10px] text-slate-300 leading-snug">{goal.description}</p>
                       </div>
                     ))}
                   </div>
@@ -1051,7 +1103,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
 
       {/* Thumbnail Drawer Modal */}
       {showGrid && (
-        <div className="absolute inset-0 z-30 bg-[#001D2B]/95 backdrop-blur-md p-6 overflow-y-auto animate-fade-in flex flex-col">
+        <div className="absolute inset-0 z-50 bg-[#001420] p-6 overflow-y-auto animate-fade-in flex flex-col">
           <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
             <h3 className="font-display font-bold text-lg text-white">Pregled svih slajdova (18)</h3>
             <button
