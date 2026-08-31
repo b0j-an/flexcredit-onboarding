@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface Sector {
   id: string;
@@ -6,19 +6,18 @@ interface Sector {
   name: string;
   role: string;
   color: string;
-  glow: string;
   border: string;
 }
 
 const sectors: Sector[] = [
-  { id: 'sales', label: 'Prodaja (61 fil.)', name: 'Nenad Marjanović', role: '7 Regija · Savjetnici', color: '#3DB3F0', glow: 'shadow-[0_0_18px_-4px_#3DB3F0]', border: 'border-blue-400/40' },
-  { id: 'ops', label: 'Operativna Podrška', name: 'Nataša Majstorović', role: 'KC (40+) · Rizici · Naplata', color: '#22D3EE', glow: 'shadow-[0_0_18px_-4px_#22D3EE]', border: 'border-cyan-400/40' },
-  { id: 'finance', label: 'Finansije & Admin', name: 'Nevena Ilić', role: 'Planiranje · Računovodstvo', color: '#A78BFA', glow: 'shadow-[0_0_18px_-4px_#A78BFA]', border: 'border-purple-400/40' },
-  { id: 'hr', label: 'Ljudski Resursi (HR)', name: 'Sanja Knežević', role: 'Regrutacija · Radni odnosi', color: '#8DC63F', glow: 'shadow-[0_0_18px_-4px_#8DC63F]', border: 'border-brand-green/40' },
-  { id: 'marketing', label: 'Marketing & PR', name: 'Mirna Đukić Švraka', role: 'Digital · Brendovi', color: '#FBBF24', glow: 'shadow-[0_0_18px_-4px_#FBBF24]', border: 'border-amber-400/40' },
-  { id: 'it', label: 'IT Podrška & IS', name: 'Aljoša Trninić', role: 'Mreže · Admini', color: '#94A3B8', glow: 'shadow-[0_0_18px_-4px_#94A3B8]', border: 'border-slate-400/40' },
-  { id: 'legal', label: 'Pravna Podrška', name: 'Andrea Mikić', role: 'Usklađenost · Sudska naplata', color: '#818CF8', glow: 'shadow-[0_0_18px_-4px_#818CF8]', border: 'border-indigo-400/40' },
-  { id: 'insurance', label: 'Osiguranje', name: 'Miloš Runić', role: 'Zastupanje u osiguranju', color: '#F472B6', glow: 'shadow-[0_0_18px_-4px_#F472B6]', border: 'border-pink-400/40' },
+  { id: 'sales', label: 'PRODAJA (61 FIL.)', name: 'Nenad Marjanović', role: '7 Regija · Savjetnici', color: '#3DB3F0', border: 'border-blue-400/30' },
+  { id: 'ops', label: 'OPERATIVNA PODRŠKA', name: 'Nataša Majstorović', role: 'KC (40+) · Rizici · Naplata', color: '#22D3EE', border: 'border-cyan-400/30' },
+  { id: 'finance', label: 'FINANSIJE & ADMIN', name: 'Nevena Ilić', role: 'Planiranje · Računovodstvo', color: '#A78BFA', border: 'border-purple-400/30' },
+  { id: 'hr', label: 'LJUDSKI RESURSI (HR)', name: 'Sanja Knežević', role: 'Regrutacija · Radni odnosi', color: '#8DC63F', border: 'border-brand-green/30' },
+  { id: 'marketing', label: 'MARKETING & PR', name: 'Mirna Đukić Švraka', role: 'Digital · Brendovi', color: '#FBBF24', border: 'border-amber-400/30' },
+  { id: 'it', label: 'IT PODRŠKA & IS', name: 'Aljoša Trninić', role: 'Mreže · Admini', color: '#94A3B8', border: 'border-slate-400/30' },
+  { id: 'legal', label: 'PRAVNA PODRŠKA', name: 'Andrea Mikić', role: 'Usklađenost · Sudska naplata', color: '#818CF8', border: 'border-indigo-400/30' },
+  { id: 'insurance', label: 'OSIGURANJE', name: 'Miloš Runić', role: 'Zastupanje u osiguranju', color: '#F472B6', border: 'border-pink-400/30' },
 ];
 
 const CX = 450;
@@ -42,17 +41,28 @@ const buildConnectorPath = (nx: number, ny: number, seed: number) => {
   const dist = Math.sqrt(dx * dx + dy * dy) || 1;
   const perpX = -dy / dist;
   const perpY = dx / dist;
-  const bend = (seed % 2 === 0 ? 1 : -1) * dist * 0.14;
+  const bend = (seed % 2 === 0 ? 1 : -1) * dist * 0.12;
   const ctrlX = mx + perpX * bend;
   const ctrlY = my + perpY * bend;
   return `M ${CX} ${CY} Q ${ctrlX} ${ctrlY} ${nx} ${ny}`;
 };
 
 export const OrgChartOrbit: React.FC = () => {
+  const [isMoved, setIsMoved] = useState(false);
+  const [hoveredSector, setHoveredSector] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Clean, elegant transition exactly 1 second after load
+    const timer = setTimeout(() => {
+      setIsMoved(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
-      {/* Mobile fallback: the radial layout has no room to breathe below `sm`, so
-          show a simple stacked list instead of clipping nodes off-screen. */}
+      {/* Mobile fallback: Clean stacked layout with 1-second delay entrance */}
       <div className="sm:hidden h-full overflow-y-auto pr-1 space-y-2">
         <div className="flex items-center gap-3 p-3 rounded-xl bg-brand-green/15 border border-brand-green/40">
           <img
@@ -66,11 +76,19 @@ export const OrgChartOrbit: React.FC = () => {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-2">
-          {sectors.map((s) => (
-            <div key={s.id} className={`p-3 rounded-xl bg-white/10 border ${s.border}`}>
+          {sectors.map((s, i) => (
+            <div
+              key={s.id}
+              className={`p-3 rounded-xl bg-white/10 border ${s.border} transition-all duration-500 ease-out`}
+              style={{
+                opacity: isMoved ? 1 : 0,
+                transform: isMoved ? 'translateY(0)' : 'translateY(12px)',
+                transitionDelay: isMoved ? `${i * 60}ms` : '0ms',
+              }}
+            >
               <div className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }} />
-                <span className="text-[11px] font-bold uppercase tracking-wide truncate" style={{ color: s.color }}>{s.label}</span>
+                <span className="text-[10px] font-bold uppercase tracking-wide truncate" style={{ color: s.color }}>{s.label}</span>
               </div>
               <div className="text-xs font-display font-black text-white leading-tight mt-1">{s.name}</div>
               <div className="text-[11px] text-slate-300 leading-snug mt-0.5">{s.role}</div>
@@ -79,89 +97,92 @@ export const OrgChartOrbit: React.FC = () => {
         </div>
       </div>
 
-      {/* Desktop/tablet: animated orbit diagram. All children (hub, node chips) are
-          position:absolute, so they contribute zero intrinsic size — this wrapper
-          MUST get a definite width from `w-full` for `aspect-[45/26]` to derive a
-          height from. (Forcing both w-full AND h-full, like before, makes the
-          browser ignore aspect-ratio entirely — the box then fills the parent at
-          whatever ratio it happens to have, so the HTML chips positioned by % of
-          this box drift away from where the SVG's own letterboxed viewBox draws
-          the connector lines. Only constrain ONE axis and let aspect-ratio own
-          the other.) */}
+      {/* Desktop/tablet: Smooth 1-second load movement */}
       <div className="hidden sm:block relative w-full aspect-[45/26] mx-auto">
-      {/* Connector lines */}
-      <svg
-        viewBox={`0 0 ${CX * 2} ${CY * 2}`}
-        className="absolute inset-0 w-full h-full select-none"
-        preserveAspectRatio="xMidYMid meet"
-      >
-        <defs>
-          <filter id="orbitGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
-        </defs>
+        {/* Connector lines */}
+        <svg
+          viewBox={`0 0 ${CX * 2} ${CY * 2}`}
+          className="absolute inset-0 w-full h-full select-none pointer-events-none"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          {sectors.map((s, i) => {
+            const { x, y } = nodePositions[i];
+            const isHovered = hoveredSector === s.id;
+            return (
+              <path
+                key={s.id}
+                d={buildConnectorPath(x, y, i)}
+                fill="none"
+                stroke={s.color}
+                strokeWidth={isHovered ? '2' : '1.25'}
+                strokeDasharray="4 4"
+                className="transition-opacity duration-700 ease-out"
+                style={{
+                  opacity: isMoved ? (isHovered ? 0.9 : 0.35) : 0,
+                  transitionDelay: isMoved ? `${150 + i * 40}ms` : '0ms',
+                }}
+              />
+            );
+          })}
+        </svg>
+
+        {/* Hub: Country Manager (Static, clean, professional) */}
+        <div
+          className="absolute flex flex-col items-center gap-1.5 z-20"
+          style={{
+            left: `${(CX / (CX * 2)) * 100}%`,
+            top: `${(CY / (CY * 2)) * 100}%`,
+            transform: 'translate(-50%, -50%)',
+          }}
+        >
+          <div className="relative flex items-center justify-center">
+            <img
+              src="/assets/team/radmila-bjeljac.png"
+              alt="Radmila Bjeljac"
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-brand-green shadow-lg"
+            />
+          </div>
+          <div className="text-center bg-[#001D2B]/95 border border-brand-green/40 rounded-xl px-3 py-1 backdrop-blur-sm">
+            <div className="text-[11px] font-black text-brand-green uppercase tracking-wider">Country Manager</div>
+            <div className="text-sm sm:text-base font-display font-black text-white leading-tight whitespace-nowrap">Radmila Bjeljac</div>
+          </div>
+        </div>
+
+        {/* Sector Cards: Smooth glide from center after 1 second */}
         {sectors.map((s, i) => {
           const { x, y } = nodePositions[i];
+          const isHovered = hoveredSector === s.id;
+          const targetLeft = (x / (CX * 2)) * 100;
+          const targetTop = (y / (CY * 2)) * 100;
+
           return (
-            <path
+            <div
               key={s.id}
-              d={buildConnectorPath(x, y, i)}
-              fill="none"
-              stroke={s.color}
-              strokeWidth="1.5"
-              strokeDasharray="5 5"
-              opacity="0.55"
-              className="animate-dash-flow motion-reduce:animate-none"
-              style={{ animationDelay: `${i * 90}ms` }}
-            />
+              onMouseEnter={() => setHoveredSector(s.id)}
+              onMouseLeave={() => setHoveredSector(null)}
+              className={`absolute w-[170px] sm:w-[188px] p-2.5 sm:p-3 rounded-xl bg-white/10 border backdrop-blur-sm transition-all duration-700 ease-out cursor-pointer ${
+                isHovered
+                  ? 'border-white/40 bg-white/15 scale-105 z-30 shadow-lg'
+                  : `${s.border} z-10 hover:border-white/30`
+              }`}
+              style={{
+                left: isMoved ? `${targetLeft}%` : '50%',
+                top: isMoved ? `${targetTop}%` : '50%',
+                transform: `translate(-50%, -50%) ${isMoved ? (isHovered ? 'scale(1.05)' : 'scale(1)') : 'scale(0.65)'}`,
+                opacity: isMoved ? 1 : 0,
+                pointerEvents: isMoved ? 'auto' : 'none',
+                transitionDelay: isMoved ? `${i * 50}ms` : '0ms',
+              }}
+            >
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }} />
+                <span className="text-[10px] font-bold uppercase tracking-wide truncate" style={{ color: s.color }}>{s.label}</span>
+              </div>
+              <div className="text-sm sm:text-base font-display font-black text-white leading-tight mt-1">{s.name}</div>
+              <div className="text-[11px] text-slate-300 leading-snug mt-0.5">{s.role}</div>
+            </div>
           );
         })}
-      </svg>
-
-      {/* Hub: Country Manager */}
-      <div
-        className="absolute flex flex-col items-center gap-1.5 animate-scale-in motion-reduce:animate-none"
-        style={{ left: `${(CX / (CX * 2)) * 100}%`, top: `${(CY / (CY * 2)) * 100}%`, transform: 'translate(-50%, -50%)' }}
-      >
-        <div className="relative flex items-center justify-center">
-          <span className="absolute w-24 h-24 rounded-full bg-brand-green/40 animate-orbit-pulse motion-reduce:animate-none" />
-          <span className="absolute w-24 h-24 rounded-full bg-brand-green/40 animate-orbit-pulse motion-reduce:animate-none" style={{ animationDelay: '1.2s' }} />
-          <img
-            src="/assets/team/radmila-bjeljac.png"
-            alt="Radmila Bjeljac"
-            className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-brand-green shadow-glow-green"
-          />
-        </div>
-        <div className="text-center bg-[#001D2B]/90 border border-brand-green/40 rounded-xl px-3 py-1 backdrop-blur-sm">
-          <div className="text-[11px] font-black text-brand-green uppercase tracking-wider">Country Manager</div>
-          <div className="text-sm sm:text-base font-display font-black text-white leading-tight whitespace-nowrap">Radmila Bjeljac</div>
-        </div>
-      </div>
-
-      {/* Sector nodes */}
-      {sectors.map((s, i) => {
-        const { x, y } = nodePositions[i];
-        return (
-          <div
-            key={s.id}
-            className={`absolute w-[170px] sm:w-[188px] p-2.5 sm:p-3 rounded-xl bg-white/10 border ${s.border} ${s.glow} backdrop-blur-sm animate-scale-in motion-reduce:animate-none`}
-            style={{
-              left: `${(x / (CX * 2)) * 100}%`,
-              top: `${(y / (CY * 2)) * 100}%`,
-              transform: 'translate(-50%, -50%)',
-              animationDelay: `${150 + i * 90}ms`,
-            }}
-          >
-            <div className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }} />
-              <span className="text-[11px] font-bold uppercase tracking-wide truncate" style={{ color: s.color }}>{s.label}</span>
-            </div>
-            <div className="text-sm sm:text-base font-display font-black text-white leading-tight mt-1">{s.name}</div>
-            <div className="text-[11px] text-slate-300 leading-snug mt-0.5">{s.role}</div>
-          </div>
-        );
-      })}
       </div>
     </>
   );
