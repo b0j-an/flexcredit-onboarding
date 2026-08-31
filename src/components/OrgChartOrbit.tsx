@@ -23,8 +23,8 @@ const sectors: Sector[] = [
 
 const CX = 450;
 const CY = 260;
-const RX = 350;
-const RY = 185;
+const RX = 270;
+const RY = 175;
 
 const nodePositions = sectors.map((_, i) => {
   const angle = (-90 + (360 / sectors.length) * i) * (Math.PI / 180);
@@ -54,33 +54,41 @@ export const OrgChartOrbit: React.FC = () => {
       {/* Mobile fallback: the radial layout has no room to breathe below `sm`, so
           show a simple stacked list instead of clipping nodes off-screen. */}
       <div className="sm:hidden h-full overflow-y-auto pr-1 space-y-2">
-        <div className="flex items-center gap-3 p-2.5 rounded-xl bg-brand-green/15 border border-brand-green/40">
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-brand-green/15 border border-brand-green/40">
           <img
             src="/assets/team/radmila-bjeljac.png"
             alt="Radmila Bjeljac"
             className="w-12 h-12 rounded-full object-cover border-2 border-brand-green flex-shrink-0"
           />
           <div>
-            <div className="text-[9px] font-black text-brand-green uppercase tracking-wider">Country Manager</div>
+            <div className="text-[11px] font-black text-brand-green uppercase tracking-wider">Country Manager</div>
             <div className="text-sm font-display font-black text-white leading-tight">Radmila Bjeljac</div>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-2">
           {sectors.map((s) => (
-            <div key={s.id} className={`p-2.5 rounded-xl bg-white/10 border ${s.border}`}>
+            <div key={s.id} className={`p-3 rounded-xl bg-white/10 border ${s.border}`}>
               <div className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }} />
-                <span className="text-[8px] font-bold uppercase tracking-wide truncate" style={{ color: s.color }}>{s.label}</span>
+                <span className="text-[11px] font-bold uppercase tracking-wide truncate" style={{ color: s.color }}>{s.label}</span>
               </div>
-              <div className="text-xs font-display font-black text-white leading-tight mt-0.5">{s.name}</div>
-              <div className="text-[8px] text-slate-300 leading-snug mt-0.5">{s.role}</div>
+              <div className="text-xs font-display font-black text-white leading-tight mt-1">{s.name}</div>
+              <div className="text-[11px] text-slate-300 leading-snug mt-0.5">{s.role}</div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Desktop/tablet: animated orbit diagram */}
-      <div className="hidden sm:block relative w-full h-full max-h-full mx-auto aspect-[45/26]">
+      {/* Desktop/tablet: animated orbit diagram. All children (hub, node chips) are
+          position:absolute, so they contribute zero intrinsic size — this wrapper
+          MUST get a definite width from `w-full` for `aspect-[45/26]` to derive a
+          height from. (Forcing both w-full AND h-full, like before, makes the
+          browser ignore aspect-ratio entirely — the box then fills the parent at
+          whatever ratio it happens to have, so the HTML chips positioned by % of
+          this box drift away from where the SVG's own letterboxed viewBox draws
+          the connector lines. Only constrain ONE axis and let aspect-ratio own
+          the other.) */}
+      <div className="hidden sm:block relative w-full aspect-[45/26] mx-auto">
       {/* Connector lines */}
       <svg
         viewBox={`0 0 ${CX * 2} ${CY * 2}`}
@@ -126,7 +134,7 @@ export const OrgChartOrbit: React.FC = () => {
           />
         </div>
         <div className="text-center bg-[#001D2B]/90 border border-brand-green/40 rounded-xl px-3 py-1 backdrop-blur-sm">
-          <div className="text-[8px] font-black text-brand-green uppercase tracking-wider">Country Manager</div>
+          <div className="text-[11px] font-black text-brand-green uppercase tracking-wider">Country Manager</div>
           <div className="text-sm sm:text-base font-display font-black text-white leading-tight whitespace-nowrap">Radmila Bjeljac</div>
         </div>
       </div>
@@ -137,7 +145,7 @@ export const OrgChartOrbit: React.FC = () => {
         return (
           <div
             key={s.id}
-            className={`absolute w-[150px] sm:w-[168px] p-2 sm:p-2.5 rounded-xl bg-white/10 border ${s.border} ${s.glow} backdrop-blur-sm animate-scale-in motion-reduce:animate-none`}
+            className={`absolute w-[170px] sm:w-[188px] p-2.5 sm:p-3 rounded-xl bg-white/10 border ${s.border} ${s.glow} backdrop-blur-sm animate-scale-in motion-reduce:animate-none`}
             style={{
               left: `${(x / (CX * 2)) * 100}%`,
               top: `${(y / (CY * 2)) * 100}%`,
@@ -147,10 +155,10 @@ export const OrgChartOrbit: React.FC = () => {
           >
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }} />
-              <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wide truncate" style={{ color: s.color }}>{s.label}</span>
+              <span className="text-[11px] font-bold uppercase tracking-wide truncate" style={{ color: s.color }}>{s.label}</span>
             </div>
-            <div className="text-xs sm:text-sm font-display font-black text-white leading-tight mt-0.5">{s.name}</div>
-            <div className="text-[8px] sm:text-[9px] text-slate-300 leading-snug mt-0.5">{s.role}</div>
+            <div className="text-sm sm:text-base font-display font-black text-white leading-tight mt-1">{s.name}</div>
+            <div className="text-[11px] text-slate-300 leading-snug mt-0.5">{s.role}</div>
           </div>
         );
       })}

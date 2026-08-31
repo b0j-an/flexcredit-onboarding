@@ -286,20 +286,30 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               {/* SLIDE 1: Welcome Hero */}
               {currentSlide === 1 && (
                 <div className="h-full flex flex-col justify-between py-4">
-                  <div className="space-y-4 max-w-3xl">
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-green/20 text-brand-green border border-brand-green/40 text-xs font-bold uppercase tracking-widest">
-                      <Sparkles className="w-4 h-4" />
-                      Onboarding Prezentacija
-                    </div>
-                    
-                    <h1 className="font-display font-black text-4xl sm:text-6xl text-white tracking-tight leading-tight">
-                      DOBRODOŠLI U
-                      <span className="text-brand-green block mt-1">FLEX CREDIT TIM!</span>
-                    </h1>
+                  <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center min-h-0">
+                    <div className="lg:col-span-7 space-y-4">
+                      <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-green/20 text-brand-green border border-brand-green/40 text-xs font-bold uppercase tracking-widest">
+                        <Sparkles className="w-4 h-4" />
+                        Onboarding Prezentacija
+                      </div>
 
-                    <p className="text-slate-300 text-sm sm:text-lg max-w-2xl leading-relaxed">
-                      Pred vama je sveobuhvatni vodič kroz kompaniju, vrijednosti, organizacionu strukturu, prodajnu mrežu i ključne ciljeve za 2026. godinu.
-                    </p>
+                      <h1 className="font-display font-black text-4xl sm:text-6xl text-white tracking-tight leading-tight">
+                        DOBRODOŠLI U
+                        <span className="text-brand-green block mt-1">FLEX CREDIT TIM!</span>
+                      </h1>
+
+                      <p className="text-slate-300 text-sm sm:text-lg max-w-2xl leading-relaxed">
+                        Pred vama je sveobuhvatni vodič kroz kompaniju, vrijednosti, organizacionu strukturu, prodajnu mrežu i ključne ciljeve za 2026. godinu.
+                      </p>
+                    </div>
+
+                    <div className="hidden lg:flex lg:col-span-5 items-center justify-center">
+                      <img
+                        src="/assets/branding/flexcredit-hero-logo.png"
+                        alt="Flex Credit"
+                        className="w-full max-w-md h-auto object-contain drop-shadow-glow-green opacity-95"
+                      />
+                    </div>
                   </div>
 
                   <div className="pt-6 border-t border-white/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -501,11 +511,14 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                   </div>
 
                   <div className="lg:col-span-6 flex justify-center">
-                    <img
-                      src="/assets/office/flexcredit-headquarters-building.png"
-                      alt="Sjedište Flex Credit"
-                      className="max-h-72 w-auto object-cover rounded-2xl shadow-2xl border-2 border-white/20"
-                    />
+                    <div className="h-72 aspect-square rounded-2xl shadow-2xl border-2 border-white/20 overflow-hidden">
+                      <img
+                        src="/assets/office/flexcredit-headquarters-building.png"
+                        alt="Sjedište Flex Credit"
+                        className="w-full h-full object-cover"
+                        style={{ objectPosition: '38% center' }}
+                      />
+                    </div>
                   </div>
                 </div>
               )}
@@ -632,19 +645,19 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                     </h2>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 my-auto">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 my-auto">
                     {strategicGoals.map((goal) => (
                       <div
                         key={goal.id}
-                        className="p-3 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 text-center flex flex-col items-center justify-between"
+                        className="p-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 text-center flex flex-col items-center justify-between"
                       >
                         <img
                           src={goalIcons[goal.id]}
                           alt={goal.title}
-                          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-brand-green/50 shadow-md"
+                          className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-brand-green/50 shadow-md"
                         />
-                        <h4 className="font-display font-bold text-xs text-white my-1.5">{goal.title}</h4>
-                        <p className="text-[10px] text-slate-300 leading-snug">{goal.description}</p>
+                        <h4 className="font-display font-bold text-sm sm:text-base text-white my-2">{goal.title}</h4>
+                        <p className="text-xs text-slate-300 leading-snug">{goal.description}</p>
                       </div>
                     ))}
                   </div>
@@ -669,7 +682,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                   </div>
 
                   {/* Animated single-page orbit diagram: Country Manager hub + 8 sectors */}
-                  <div className="my-auto flex-1 min-h-0">
+                  <div className="flex-1 min-h-0">
                     <OrgChartOrbit />
                   </div>
 
@@ -947,19 +960,19 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                     </h2>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 my-auto">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-auto">
                     {employeeBenefits.map((b, idx) => (
                       <div
                         key={idx}
-                        className="p-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 flex flex-col items-center text-center justify-between transition-all hover:-translate-y-1 hover:border-brand-green/50"
+                        className="p-5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 flex flex-col items-center text-center justify-between transition-all hover:-translate-y-1 hover:border-brand-green/50"
                       >
                         <img
                           src={benefitIcons[idx]}
                           alt={b.title}
-                          className="h-14 sm:h-16 w-auto object-contain drop-shadow-glow-cyan"
+                          className="h-20 sm:h-24 w-auto object-contain drop-shadow-glow-cyan"
                         />
-                        <h4 className="font-display font-bold text-sm text-white my-2">{b.title}</h4>
-                        <p className="text-[11px] text-slate-300 leading-relaxed">{b.desc}</p>
+                        <h4 className="font-display font-bold text-base text-white my-2">{b.title}</h4>
+                        <p className="text-xs text-slate-300 leading-relaxed">{b.desc}</p>
                       </div>
                     ))}
                   </div>
